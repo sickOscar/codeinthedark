@@ -1,0 +1,553 @@
+<html>
+<head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #fff;
+    }
+
+    #code-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      min-width: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      font-size: 20px;
+      padding: 30px;
+    }
+
+    #code {
+      font-family: monospace;
+      color: #fff;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    
+  </style>
+</head>
+<body>
+<canvas id="cancan" width="100%" height="100%"></canvas>
+<div id="code-container">
+  <pre id="code"></pre>
+</div>
+<script>
+
+  // u(t) is called 60 times per second.
+  // t: elapsed time in seconds.
+  // c: A 1920x1080 canvas.
+  // x: A 2D context for that canvas.
+  // S: Math.sin
+  // C: Math.cos
+  // T: Math.tan
+  // R: Generates rgba-strings, ex.: R(255, 255, 255, 0.5)
+
+  const codeContainer = document.getElementById('code');
+
+  let c, x, S, C, R, T;
+
+  function resetVariables() {
+
+    console.log('CHANGE')
+
+    c = document.getElementById("cancan")
+    x = c.getContext("2d")
+
+
+    c.width = window.innerWidth;
+    c.height = window.innerHeight;
+
+    x.fillStyle = `#fff`;
+    x.fillRect(0, 0, c.width, c.height);
+
+    S = Math.sin;
+    C = Math.cos;
+    T = Math.tan;
+    R = (r, g, b, a) => a ? `rgba(${r}, ${g}, ${b}, ${a})` : `rgb(${r}, ${g}, ${b})`;
+  }
+
+  const effects = [
+    {
+      code: function u(t) {
+        j = C(T = t * 4 - S(t * 8) / 2) - S(Math.acos(1 - Math.abs(i = S(T))))
+        z = (a, k) => (a * (3 - C(T / 27)) + k) * 99
+        x.lineTo(z(i, 9), z(j / 1.5, 7))
+        x.stroke()
+      }
+    },
+    {
+      code: function u(t) {
+        c.width = 2e3;
+        for (i = 20; i--;) {
+          for (j = 10; j--;) x.fillStyle = R(i * 20, j * 25, 10), x.fillRect(960 + S(t - i - j * .05) * 400, 540 + S(t + i - j * .05) * 200, 10, 10)
+        }
+      }
+    },
+    {
+      code: function u(t) {
+        for (w = c.width = 1940, p = 6; --p;)
+          for (i = w; i--; x.fillRect(i, m = S(i / 23 + t) * 4 + S(i / 67 + t * 2 + p) * 37 + p + 79, 1, m))
+            x.fillStyle = `hsl(${p * 5 + t * 9},99%,50%,` + S(t / 2 + p)
+      }
+    },
+    {
+      code: function u(t) {
+        c.width |= i = 50
+        with (x) for (globalCompositeOperation = 'xor'; i--;) beginPath(arc(985 + S(a = t * i / 17) * 700, 240 + i * t + C(a) * 230, i, 0, 7), i % 2 ? stroke() : fill())
+      }
+    },
+    {
+      code: function u(t) {
+        with (x) for (i = 32; i--; fill(arc(960 + C(i * 3.14 + t * i) * 99, 540 + S(i * 3.14 - t * i) * 99, i * 31, 0, 7))) beginPath(fillStyle = R(i * 6, i, i * 4, .6))
+      }
+    },
+    {
+      code: function u(t) {
+        r = Math.random;
+        for (i = k = 214; i--; x.fillRect(k * X, k * Y, i / t, i / t)) X = r(Y = r() * 5) * 9, h = k * S(S(C(S(p = 8 % (Y + 3) / C(q = X % 3 * Y % 1))) - p)), x.fillStyle = R(h * q, 3 * h, h * p)
+      }
+    },
+    {
+      code: function u(t) {
+        for (i = 0; i < 88 * (t % 9); i++) {
+          x.fillStyle = R(0, 0, 0, 0.025);
+          s = t % 4.735 * 100;
+          x.fillRect((i % 2 ? 550 : 1400) + C(t / 10 + i) * s, 540 + S(t / 10 + i) * (C(t) * s), 5, 5)
+        }
+      }
+    },
+    {
+      code: function u(t) {
+        for (i = 2e3; i--; x.strokeRect(i + T(t), 500 + 500 * S(i - (C(i) * t)), t + 29, t + 25)) x.strokeStyle = `hsla(${i / 9 + t * 199},90%,50%,.1)`
+      },
+      author: 'Xen'
+    },
+    {
+      code: function u(t) {
+        for (c.width |= 0, j = 32, x.lineWidth = 4; b = 2, j--;) for (i = j; b--; i += 15) x.lineTo(960 + C(a = t * i / 16) * i * 13, 540 + S(a) * i * 13);
+        x.stroke()
+      }
+    },
+    {
+      code: function u(t) {
+        for (c.width |= i = 99; i--; x.arc(1e3 + C(t * i / 59) * 9, 500 + S(i * t / 69) * 9, i * (7 + C(t)), 0, t))
+          x.beginPath(x.stroke())
+      },
+      author: 'rep_movsd'
+    },
+    {
+      code: function u(t) {
+        for (a = 66; a--;)
+          x.beginPath(), x.arc(960 + C(s = (137.5 * a)) * (r = a * t % 400 * 1.35), 540 + S(s) * r, 50 - (a * t) % 50, 0, 7), x.stroke(), x.fillStyle = `#fffa`, x.fill()
+      },
+      author: 'sandromiccoli'
+    },
+    {
+      code: function u(t) {
+        for (c.width |= i = 20; i--;)
+          b = 3 * C(i / 3), x.arc(600 + 40 * i + 200 * S(t - 7), 500 + 200 * S(t) - 20 * i - 30 * (s = (b + 2) * S(5 * t)), 300, 1.4 + b / 9 + (d = s / 9 + C(t) / 3), 2 + d), x.stroke()
+      },
+      author: 'ellisk1'
+    },
+    {
+      code: function u(t) {
+        for (c.width |= i = l = j = d = 2.6, e = 7e3; ++i < e; j = k, l = m) k = S(d * l) + C(t) * C(j * d), m = S(d * j) + S(t) * C(l * d), x.globalAlpha = .27, x.fillRect(960 + j * 400, 540 + l * 250, 7, 7)
+      },
+      author: 'johnata_b'
+    },
+    {
+      code: function u(t) {
+        c.width = 1920
+        x.lineWidth = 35
+        for (i = 0; i < 10; i++) {
+          x.arc(-S(t / 1.5) * i * 60 + 900, C(t) * i * 50 + 500, i * 40 + 40, 0, 6.28)
+        }
+        x.stroke()
+      }
+    },
+    {
+      code: function u(t) {
+        c.width += i = 0;
+        h = 400;
+        for (; ++i < 200;) for (j = a = (t + C(i)) % 2; j++ < 50;) x.fillRect(C(i) + ~~a * (w = a * h - h) * C(j) + 960, (~~a ? h : a * h) * (C(i) ** 2 + 2) + w * S(j) / 4 - 210, 2, 2)
+      },
+      author: 'Bugsy'
+    },
+    {
+      code: function u(t) {
+        for (x.drawImage(c, b = n = 0, -16), i = w = 960; a = C(i / w * 4), b = !b, i-- > -w; n += C(t * i * i), x.fillStyle = R(e = b * w, e, e))
+          x.fillRect(i + b + w, a > 0 ? w + a * a * n * 2 + b * 4 : w, 2, w)
+      },
+      author: 'mxfh'
+    },
+
+    {
+      code: function u(t) {
+        for (i = 0; i < 2e3; x.fillRect(i ? 960 + i * S(F = 260 * (t + 9) / i + S(i * i)) : 0, i ? 500 + .2 * (2 * i * C(F) + 2e4 / i) : 0, K = i++ ? S(i) * 9 : 2e3, K))
+          x.fillStyle = R(99 * i, 2 * i, i, i ? 1 : .4)
+      },
+      author: 'KilledByAPixel'
+    },
+    {
+      code: function u(t) {
+        c.width = w = 1920
+        v = t + 400
+        for (q = 255; q--;) {
+          x.fillStyle = R(q, q, q);
+          x.beginPath();
+          x.arc(w / 2 + C(v - q) * (v + q), 540 + S(v - q) * (v - q), 40, 0, 6.283, !1);
+          x.fill()
+        }
+      },
+      author: 'retera'
+    },
+    {
+      code: function u(t) {
+        c.width ^= 0;
+        for (i = 3; i++ < 11;) a = i * S(t) / 4, x.beginPath(), x.arc(960, 540, 40 * i, Math.min(t + a, t + 3 * a), Math.max(t + a, t + 3 * a)), x.lineWidth = i * i / 5, x.stroke()
+      }
+    },
+    {
+      code: function u(t) {
+        c.width = 1920;
+        for (i = 0; i < 64; i++)
+          x.fillRect(i * 30, 400 + C(4 * t + (i * 3)) * 100, 27, 200)
+      },
+      author: 'magna',
+      textColor: '#f00',
+    },
+    {
+      code: function u(t) {
+        x.fillRect(0, 0, 2e3, 2e3);
+        for (i = 64; i--;)
+          for (x.setTransform(1, 0, 0, 1, i % 8 * 240, (i >> 3) * 135), j = 99; j--;)
+            x.clearRect(120 + C(t + j / 4) * 50, 67 + S(j * i) * 50, 3, 3)
+      },
+      author: 'magna',
+      textColor: '#f00',
+    },
+    {
+      code: function u(t) {
+        c.width |= z = 4 + C(t);
+        r = 89;
+        f = a => x.lineTo(250 * z + r * C(q = a - S(t + a) / 3) * z, 99 * S(2 * t) + r * z * (1 + S(q)));
+        f(0);
+        f(1.3);
+        f(2);
+        f(2.5);
+        f(0);
+        f(2);
+        r = 99;
+        f(2);
+        x.fill()
+      }
+    },
+    {
+      code: function u(t) {
+        r = 1080;
+        d = 960;
+        c.width = 2 * d;
+        for (i = 0; i < 999; i++) {
+          x.fillStyle = R(i % 300, i % 255, i % 320);
+          x.fillRect(d + 300 * S(i + t), r / 2 + 300 * S(i) + T(t - i), 10, 10);
+        }
+      },
+      author: 'Exquisite'
+    },
+    {
+      code: function u(t) {
+        c.width = 1920
+        for (i = 0; i < 1920; i += 4) {
+          s = i / 99 - t * 4 % 27 + 5
+          w = Math.pow(2, -s * s) * 99 + 9
+          x.fillRect(i, 540 - w / 2 + S(i / 43) * 9 + (i > 960 ? i / 2 - 480 : 0) * (i % 8 ? 1 : -1), 8, w)
+        }
+      },
+      author: 'jlb'
+    },
+    {
+      code: function u(t) {
+        c.width |= i = 300
+        x.lineWidth = .1
+        while (--i) {
+          q = 19 + S(t / 6) / 28 * i;
+          x.arc(S(q / 3) * i + q * 60, (C(q * S(t / 2)) + 4) * i / 2 + 200, (C(q) * 60 + 200) * S(i / 96), 0, 7)
+        }
+        x.stroke()
+      },
+      author: 'jbl'
+    },
+    {
+      code: function u(t) {
+        c.width |= 0;
+        for (n = 200; n -= 1 / 64; x.fillRect(n % 3 * 666, n * 5, h = 8 - k, h)) for (r = C(t * 3), i = S(t * 4), k = 28; --k / r; i = j) j = 2 * r * i + 1 - n / 99, r = r * r - i * i + 1 - n % 3
+      },
+      textColor: '#f00',
+      author: 'p01'
+    },
+    {
+      code: function u(t) {
+        t /= 4;
+        for (i = 0; i < 1100; i++) {
+          d = C(t + i), s = i == 0 ? 2920 : 9 - d * 8;
+          x.fillStyle = R(i, i, i, 0.1);
+          x.fillRect(S(t * 2.5 + i) * 220 * S(C(t) + i % 50) + 960 * (i == 0 ? -1 : 1), i, s, s);
+        }
+      },
+      textColor: '#f00',
+      author: 'Exca'
+    },
+    {
+      code: function u(t) {
+        X = 960, Y = 80 + 1080 * t % 900, a = 1;
+        for (i = 99; --i;) {
+          x.fillStyle = T(a) < 9 ? R(99 - a, a / 3, 0, .3) : "#FFA", x.fillRect(X += S(a) * Y / 50, Y += C(a) * 4, 8, 8);
+          a += 7 * Math.random()
+        }
+      },
+      textColor: '#f00',
+      author: 'BriSeven'
+    },
+    {
+      code: function u(t) {
+        c.width = 2e3;
+        for (a = i = 629; i--;) s = -150 / ((i + t * 60) % a), X = a * S(i * .31) * s + 1e3, Y = a * C(i * .3) * s + 500, x.fillRect(X, Y, s * 9, s * 9), x.lineTo(X, Y);
+        x.stroke();
+      },
+      author: 'New_Core'
+    },
+    {
+      code: function u(t) {
+        c.width = w = 1920;
+        π = Math.PI / 2;
+        λ = 0;
+        r = w / 4;
+        for (φ = -π; φ < π; φ += 1 / r) {
+          λ += .1;
+          x.lineTo(C(φ) * S(λ - t) * r + w / 2, (C(t) * S(φ) - S(t) * C(φ) * C(λ - t)) * r + r)
+        }
+        x.stroke()
+      },
+      author: 'mxfh'
+    },
+    {
+      code: function u(t) {
+        v = (a, b, g, r) => {
+          for (i = 0; i++ < r;) x.fillRect(a += S(g), b -= C(g), r / 9, 2)
+          r > 1 ? v(a, b, g += o, r *= .7) & v(a, b, g += 5, r) : 0
+        }
+        o = S(t) / 9 + 1
+        c.width = 1920 / 2
+        v(c.width / 2, c.height, 0, 200)
+      },
+      author: 'ben'
+    },
+    {
+      code: function u(t) {
+        for (i = c.width |= 0; i--; x.fillRect(960 + S(p = .9 * i + S(t) * 3e3 / i * S(t)) * (d = i * i / 1e3) - i * C(t), 540 + C(p) * d - i * S(t), s, s))
+          x.fillStyle = R(Z = t * i % 255, s = i / 5, 255 - Z)
+      },
+      author: 'Xen'
+    },
+    {
+      code: function u(t) {
+        x.fillStyle = R(b = 2e3, b, b, 0.1);
+        x.fillRect(0, 0, b, b);
+        x.beginPath();
+        for (i = b; i--;) x.lineTo(i / 2 * C(t) + i * S(g = t + i) + 960, i / 4 * S(t) + i * C(g) + 540);
+        x.stroke()
+      },
+      author: 'New_Core'
+    },
+    {
+      code: function u(t) {
+        for (d = 2e3; d--; x.fillRect(960 + d * C(a), 540 + d * S(a), 24, 24)) {
+          a = Math.random() * 6.3, x.fillStyle = R(e = 255 * C(t - 1e3 / d * S(t - a - C(a * 99 / d))), 99 * S(a - e / d), 6e4 / d)
+        }
+      },
+      author: 'p01'
+    },
+
+    {
+      code: function u(t) {
+        d = x.getImageData(0, 0, w = c.width = c.width, h = c.height);
+        for (i = 0; i < h; i++) for (j = 0; j < w; j++) d.data[(i * w + j) * 4 + 3] = (i - j & j + i) * t % w;
+        x.putImageData(d, 0, 0)
+      },
+      author: 'mxfh',
+      textColor: '#f00',
+    },
+    {
+      author: 'snail',
+      code: function u(t) {
+        x.transform(540, 0, 0, 540, (c.width = 1920) / 2, 540);
+        for (i = -t, n = 20; n--; i += t / 8)
+          x.lineTo(C(i), S(i));
+        x.fill("evenodd");
+      }
+    },
+    {
+      code: function u(t) {
+        w = 1920;
+        for (c.width = i = w; i >= 0; i -= 10) for (j = 0; j < 1080; j += 10) {
+          i2 = i - w / 2;
+          j2 = j - 1080 / 2
+          d = Math.sqrt(i2 * i2 + j2 * j2) / 60
+          o = 9 + C(d - t * 5) * 5
+          x.fillRect(i, j, o, o)
+        }
+      },
+      textColor: '#f00',
+    },
+    {
+      author: ' mxfh',
+      code: function u(t) {
+        r = 480;
+        c.width = r * 4;
+        λ = 0;
+        for (φ = a = Math.PI / 2; φ > -a; φ -= 1 / r) {
+          λ += a;
+          x.lineTo(C(φ) * S(λ - t) * r + 2 * r, (C(t = t + 1 / r) * S(φ) + S(t) * C(φ) * C(λ - t)) * r + r)
+        }
+        x.stroke()
+      }
+    },
+    {
+      author: 'ben',
+      code: function u(t) {
+        function v(a, b, g, r) {
+          if (r > 1) {
+            x.fillRect(a += r * S(g), b -= r * C(g), 2, 2)
+            v(a, b, g - 1 + C(t), r *= .7)
+            v(a, b, g + .5 + S(t), r)
+          }
+        }
+
+        c.width = 1920;
+        v(1920 / 2, 1920 / 2, 0, 400)
+      }
+    },
+    {
+      code: function u(t) {
+        c.width |= 0;
+        for (i = 1; i < 140; i++) {
+          b = 2 * t + i;
+          o = 200 - (S(b + 5) * 126) % 256;
+          x.fillStyle = R(0, o, 0, 1);
+          x.fillRect(940 + ((i / 60) % 1) * S(b) * 200, 400 + i * 6 % 400, 8, 8);
+        }
+      }
+    },
+    {
+      author: ' iverjo',
+      code: function u(t) {
+        c.width ^= 0;
+        for (i = 9; i < 2e3; i += 2)
+          s = 3 / (9.1 - (t + i / 99) % 9), x.beginPath(), j = i * 7 + S(i * 4 + t + S(t)), x.lineWidth = s * s, x.arc(960, 540, s * 49, j, j + .6), x.stroke()
+      },
+      textColor: '#f00'
+    },
+    {
+      code: function u(t) {
+        for (d = 256; --d;)
+          for (X = -32; ++X < 32; x.fillRect(960 + X * 8e3 / d, 100 + 7e4 / d - h, 120, 9))
+            x.fillStyle = R(h = (C(a = d / 9 + t * 6) + C(X / 9 + a / 3)) * 35, g = h + C(X ^ d) * 6 + 90, g / .8)
+      },
+      textColor: '#f00'
+    },
+    {
+      author: 'nystrand',
+      code: function u(t) {
+        for (i = w = 3e3, a = b = g = 333 * T(t % 9 / 7); j = (i ^ a * a) % 4, i--; x.fillRect(a += g + C(j * 5 + t) * g - a / 2 - w + g, b += g + S(j * 9 + t) * g - b / 2 - w, s, s), w = 2)
+          x.fillStyle = R(s = w * 9, w, s, .1)
+      }
+    },
+    {
+      author: ' jczimm',
+      code: function u(t) {
+        c.width = 1920;
+        for (i = 0; i < 300; i++)
+          for (j = 0; j < 6; j++) {
+            x.fillRect(960 + 200 * C(i) * S(T(t / 1.1) + j / i), 540 + 200 * S(i), 10, 10)
+          }
+      },
+    },
+    {
+      author: 'Renaud___',
+      code: function u(t) {
+        l = c.width += i = 0;
+        h = 400;
+        for (; ++i < 200;)
+          for (j = a = (t + C(i)) % 2; j++ < 50;)
+            x.fillRect(l * C(i * i) + ~~a * (w = a * h - h) * C(j), (~~a ? h : a * h) * (C(i) * C(i) + 2) + w * S(j) / 4, 3, 3)
+      },
+    },
+    {
+      author: 'New_Core',
+      code: function u(t) {
+        c.width = 1920;
+        for (i = 16; i--;)
+          x.ellipse(1e3 + 300 * S(t + i * .1), 500 + 50 * C(t + i * .1), 160 * S(-i * .5) + 160, 50 * S(i * .1) + 5, 1.6 + .5 * S(t * .5), 9.5, 0, 6.3);
+        x.stroke();
+      }
+    }
+
+  ]
+
+
+  let time = 0;
+  let currentIndex = 0;
+  let seen = [];
+
+  function drawText() {
+    let text = effects[currentIndex].code.toString();
+    codeContainer.innerText = text;
+  }
+
+  drawText();
+
+  resetVariables();
+
+  function getNewIndex() {
+    return Math.floor(Math.random() * effects.length);
+  }
+
+  setInterval(() => {
+    resetVariables();
+    seen.push(currentIndex);
+    if (seen.length === effects.length) {
+      seen = [];
+    }
+    let newIndex = getNewIndex();
+
+    while (seen.includes(newIndex)) {
+      newIndex = getNewIndex();
+    }
+
+    currentIndex = newIndex;  //(currentIndex + 1) % effects.length;
+    drawText();
+    time = 0;
+  }, 10000);
+
+  function render() {
+    time += 1 / 60
+    effects[currentIndex].code(time);
+    window.requestAnimationFrame(render)
+  }
+
+  window.requestAnimationFrame(render)
+</script>
+</body>
+</html>

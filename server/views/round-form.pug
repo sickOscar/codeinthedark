@@ -1,0 +1,130 @@
+html
+    include includes/head.pug
+
+
+    body
+
+        div.container
+
+            a(href="/hippos") lista round
+
+            h1 Create round
+
+            form(
+                action=`/round`
+                method="POST"
+                autocomplete="off"
+            )
+                if round
+                    input.d-none.form-control(
+                        type="text"
+                        name="id"
+                        value=round.id
+                    )
+
+                div.row
+                    div.col-sm-6
+                        div.form-group
+                            label Name
+                            input.form-control(
+                                type='text'
+                                name='name'
+                                value=round && round.name
+                            )
+                    div.col-sm-6
+                        div.form-group
+                            label Layout url
+                            input.form-control(
+                                type="text"
+                                name="layout_url"
+                                value=round && round.layout_url
+                            )
+                div.row
+                    div.col-sm-12
+
+                        div.form-group
+                            label players
+
+                            - var n = 0
+                            while n < 10
+
+                                select(
+                                    name="players[" + n + "]"
+                                )
+                                    option(value='')
+                                    each player in players
+                                        option(
+                                            selected=round && round.players[n] && round.players[n].id === player.id
+                                            value=player.id
+                                        )!= player.name
+                                - n++
+
+
+                        div.row
+                            div.col-sm-3
+                                div.form-group
+                                    label
+                                        b ROUND START
+                                    input.form-control#start(
+                                        type="time"
+                                        name="start"
+                                        value=round && round.start
+                                        )
+
+
+                            div.col-sm-3
+                                div.form-group
+                                    label
+                                        b ROUND END
+                                    input.form-control#end(
+                                        type="time"
+                                        name="end"
+                                        value=round && round.end
+                                        )
+
+
+                            div.col-sm-3
+                                div.form-group
+                                    label
+                                        b VOTE START
+                                    input.form-control#vote_start(
+                                        type="time"
+                                        name="vote_start"
+                                        value=round && round.vote_start
+                                        )
+
+
+                            div.col-sm-3
+                                div.form-group
+                                    label
+                                        b VOTE END
+                                    input.form-control#vote_end(
+                                        type="time"
+                                        name="vote_end"
+                                        value=round && round.vote_end
+                                        )
+
+                    div.col-sm-6
+                        div.form-group
+                            p=round && round.last
+                            input.checkbox#last(
+                                type='checkbox'
+                                name="last"
+                                value=1
+                                checked=round && round.last == 1
+                            )
+                            label E' la finale?
+
+
+                    div.col-sm-12
+                        div.form-group
+                            label instructions_url
+                            input#instructions_url.form-control(
+                                name="instructions_url"
+                                value=round && round.instructions_url
+                                )
+
+                        div
+                            button.btn.btn-primary=round ? 'Edit Round' : 'Create Round'
+
+

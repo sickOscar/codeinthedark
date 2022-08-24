@@ -1,0 +1,239 @@
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/content.css">
+
+
+</head>
+
+<body>
+
+<h1>LOCATION</h1>
+
+<img src="/assets/logo-argo16.png" alt="ARGO 16 LOGO"/>
+
+<p>Argo16 è situato all'interno del Polo Tecnologico Vega ed è raggiungibile in auto, treno, autobus e bicicletta</p>
+
+<address>
+    <b>Argo 16</b><br>
+    Via delle industrie, 27/5, 30175<br>
+    Marghera, Venezia VE
+</address>
+
+<div id="map" style="height:200px; margin-top:30px;"></div>
+
+<h4>In treno</h4>
+<p>
+    Dalla Stazione Ferroviaria di Mestre prendere autobus ACTV linea 2, fermata VEGA. Con treni locali è possibile scendere alla stazione ferroviaria di Venezia Porto Marghera collegata al VEGA da un sottopasso pedonale.
+</p>
+
+<h4>In Autobus</h4>
+
+<p>
+    Da Venezia P.le Roma: linee 2; 4; 4L, 6; 7. Fermata stazione ferroviaria di Venezia Porto Marghera, proseguire nel sottopasso pedonale. Da Mestre: qualsiasi linea in direzione Venezia.
+</p>
+
+<script>
+    var map;
+
+    function initMap() {
+
+        var position = {lat: 45.4716845, lng: 12.2512741};
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: position,
+            zoom: 15,
+            streetViewControl: false,
+            scaleControl: false,
+            zoomControl: false,
+            mapTypeControl: false,
+            fullscreenControl: false,
+            styles: [
+                {
+                    "featureType": "all",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "saturation": 36
+                        },
+                        {
+                            "color": "#000000"
+                        },
+                        {
+                            "lightness": 40
+                        }
+                    ]
+                },
+                {
+                    "featureType": "all",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [
+                        {
+                            "visibility": "on"
+                        },
+                        {
+                            "color": "#000000"
+                        },
+                        {
+                            "lightness": 16
+                        }
+                    ]
+                },
+                {
+                    "featureType": "all",
+                    "elementType": "labels.icon",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "administrative",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        },
+                        {
+                            "lightness": 20
+                        }
+                    ]
+                },
+                {
+                    "featureType": "administrative",
+                    "elementType": "geometry.stroke",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        },
+                        {
+                            "lightness": 17
+                        },
+                        {
+                            "weight": 1.2
+                        }
+                    ]
+                },
+                {
+                    "featureType": "landscape",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        },
+                        {
+                            "lightness": 20
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        },
+                        {
+                            "lightness": 21
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        },
+                        {
+                            "lightness": 17
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "geometry.stroke",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        },
+                        {
+                            "lightness": 29
+                        },
+                        {
+                            "weight": 0.2
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.arterial",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        },
+                        {
+                            "lightness": 18
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.local",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        },
+                        {
+                            "lightness": 16
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        },
+                        {
+                            "lightness": 19
+                        }
+                    ]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#000000"
+                        },
+                        {
+                            "lightness": 17
+                        }
+                    ]
+                }
+            ]
+        });
+
+        var marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            icon: ''
+        });
+    }
+</script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC97gngDSQqC00GOeP70l43D8gK_WFDpzU&callback=initMap"
+        type="text/javascript"></script>
+
+</body>
+
+</html>

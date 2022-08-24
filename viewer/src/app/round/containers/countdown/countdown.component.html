@@ -1,0 +1,33 @@
+<div class="container">
+  <table class="container__table">
+    <ng-container *ngIf="!isLoading; else loading">
+      <thead>
+        <tr>
+          <th>partecipanti</th>
+          <th>{{ data.roundName }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="participants">
+              <span *ngFor="let player of data.players">{{ player.name }}</span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <img src="assets/images/stopwatch.svg" class="stopwatch" alt="Time left">
+              <p class="missing">{{ data.time > 0 ? data.missing : '00:00' }}</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </ng-container>
+    <ng-template #loading>
+      <app-loader></app-loader>
+    </ng-template>
+  </table>
+  <div class="container__footer">
+    <app-footer></app-footer>
+  </div>
+</div>

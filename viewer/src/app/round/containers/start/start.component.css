@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  background-size: cover;
+  position: relative;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.3);
+}
+
+.container__missing {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  border: 1px solid red;
+}
+
+.container__missing p {
+  position: relative;
+  text-align: right;
+  right: 40px;
+  top: 10px;
+  font-size: 9vh;
+  margin: 0;
+}
+
+.container__timesUp {
+  position: relative;
+  z-index: 2;
+  font-size: 10vh;
+}

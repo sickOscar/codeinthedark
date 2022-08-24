@@ -1,0 +1,51 @@
+.poster {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('assets/crowd-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.poster label {
+    color: rgba(104, 241, 157, 0.774);
+    font-size: 6rem;
+    font-weight: bold;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+.waiting {
+    color: #000;
+}
+
+app-notification .notification {
+    text-align: center; 
+}
+
+        
+app-notification .notification p {
+    margin: 0;
+    color: #000;
+}
+
+#voteModal .preview {
+    height: auto;
+    max-height: 100%;
+    width: 100%;
+}
+
+.invisible {
+    width: 0px;
+    height: 0px;
+    z-index: -1000;
+    opacity: 0;
+}

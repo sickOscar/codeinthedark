@@ -1,0 +1,23 @@
+{
+  "name": "editor",
+  "version": "1.0.0",
+  "description": "*Read more about the Code in the Dark competition [here](https://github.com/codeinthedark/codeinthedark.github.io)*",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jquery": "^3.5.14",
+    "@types/underscore": "^1.11.4",
+    "brace": "^0.11.1",
+    "jquery": "^3.6.0",
+    "underscore": "^1.13.4",
+    "vite": "^3.0.9"
+  },
+  "devDependencies": {
+    "sass": "^1.54.5"
+  }
+}

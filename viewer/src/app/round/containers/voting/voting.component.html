@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="container__content">
+      <ng-container *ngIf="!isLoading; else loading">
+        <div class="container__title">
+          <p>{{ data.missing }}</p>
+          <h3>vota il miglior design</h3>
+        </div>
+        <div class="container__preview">
+          <app-preview *ngFor="let player of data.players"
+            [playerName]="player.name" [layoutUrl]="player.preview_url"></app-preview>
+        </div>
+      </ng-container>
+      <ng-template #loading>
+        <app-loader></app-loader>
+      </ng-template>
+    </div>
+    <div class="container__footer">
+      <app-footer></app-footer>
+    </div>
+</div>

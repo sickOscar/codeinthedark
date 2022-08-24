@@ -1,0 +1,47 @@
+<div class="container" [ngClass]="{last: isLast}">
+  <div class="container__results" *ngIf="!isLast">
+    <ng-container *ngIf="!isLoading; else loading">
+      <h2>risultato della votazione</h2>
+      <ul>
+        <li *ngFor="let player of players; let i = index"
+            [ngClass]="{selected: i <= 1}">
+          <span>{{ i + 1 }}°</span>
+          <span>{{ player.name }}</span>
+          <span>{{ player.votes }}pt</span>
+        </li>
+      </ul>
+    </ng-container>
+    <ng-template #loading>
+      <app-loader></app-loader>
+    </ng-template>
+  </div>
+  <div class="container__results" *ngIf="isLast">
+    <ng-container *ngIf="!isLoading; else loading">
+      <div class="container__results__final">
+        <div class="winner">
+          <h3>the king<br> of the code</h3>
+          <div class="trophy">
+            <p>1°</p>
+            <fa name="trophy" size="5x"></fa>
+          </div>
+          <h3>{{ players[0].name }}</h3>
+          <p class="points">{{players[0].votes}} pt</p>
+        </div>
+        <div class="ranking">
+          <div class="player"
+               *ngFor="let player of players | slice:1; let i = index">
+            <span>{{ i + 2 }}°</span>
+            <span>{{ player.name }}</span>
+            <span>{{ player.votes }} pt</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <app-loader></app-loader>
+    </ng-template>
+  </div>
+  <div class="container__footer">
+    <app-footer></app-footer>
+  </div>
+</div>

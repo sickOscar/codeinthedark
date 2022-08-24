@@ -1,0 +1,37 @@
+html
+    include includes/head
+
+    body
+
+        a(href="/hippos") lista round
+
+        h1 Create player
+
+        form(
+        action="#"
+        name="create-player"
+        onsubmit="return formSubmit(event)"
+        )
+            div
+                label Nickname
+                input(
+                type='text'
+                name='name'
+                )
+
+
+            div
+                label Nome Noioso
+                input(
+                type='text'
+                name='fullname'
+                )
+
+
+            div
+                button  Create Player
+
+
+        script(
+            src='/assets/player-form.js'
+        )

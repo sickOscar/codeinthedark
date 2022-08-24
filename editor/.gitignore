@@ -1,0 +1,12 @@
+.DS_Store
+.sass-cache/
+
+.env
+.env.local
+
+node_modules/
+.tmp/
+
+dist
+
+npm-debug.log

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Code In The Dark</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="index.css" />
+    <script src="libs/aframe-master.min.js"></script>
+</head>
+
+<body>
+    <div class="poster"><label>L0ad1ng...</label></div>
+    <a-scene background="color: #FAFAFA" class="hidden"
+        raycaster="objects: .clickable; useWorldCoordinates: false; origin: 0 2 3.5; direction: -0.18819173662480854 0.556812229372801 -0.8090389431214237"
+        cursor="rayOrigin: mouse" debug vr-mode-ui="enabled: false">
+        <a-assets>
+            <img id="environment" crossorigin="anonymous" src="assets/garage.jpg">
+
+            <a-asset-item id="model-fighter-0" src="assets/avatars/1.gltf">
+            </a-asset-item>
+            <a-asset-item id="model-fighter-1" src="assets/avatars/2.gltf">
+            </a-asset-item>
+            <a-asset-item id="model-fighter-2" src="assets/avatars/3.gltf">
+            </a-asset-item>
+            <a-asset-item id="model-fighter-3" src="assets/avatars/4.gltf">
+            </a-asset-item>
+            <a-asset-item id="model-fighter-4" src="assets/avatars/5.gltf">
+            </a-asset-item>
+            <a-asset-item id="model-fighter-5" src="assets/avatars/6.gltf">
+            </a-asset-item>
+            <a-asset-item id="model-fighter-6" src="assets/avatars/7.gltf">
+            </a-asset-item>
+            <a-asset-item id="model-fighter-7" src="assets/avatars/8.gltf">
+            </a-asset-item>
+
+        </a-assets>
+        <!-- camera="spectator: true;""  -->
+        <a-entity id="rig" position="0 4 3" rotation="0 0 0">
+            <a-entity camera="active: true;" look-controls wasd-controls></a-entity>
+        </a-entity>
+        
+        <a-sky id="image-360" radius="10" src="#environment"
+            animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+            animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade">
+        </a-sky>
+        <a-light color="#BBB" type="ambient" light="color: #ffffff; decay: 0; penumbra: 1; shadowBias: 0.5" visible="" position=""></a-light>
+        <!--a-light color="#3360f9" intensity="10" castShadow="true" angle="45" groundColor="#313131" type="directional" position="1.8 2.5 2"></a-light-->
+        <a-light id="directionalLight" color="#3360f9" intensity="10" castshadow="true" angle="45" groundcolor="#313131" type="directional" position="0 3.5 0" light="color: #ffffff; intensity: 6; angle: 3.43; type: point" visible=""></a-light>
+    </a-scene>
+    <script src="index.mjs" type="module"></script>
+</body>
+
+</html>
