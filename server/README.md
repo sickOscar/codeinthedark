@@ -17,7 +17,7 @@ All the services talks to this server via a common api. Once started, it could b
 
 ### Admin interface
 
-Admin interface (SSR) is available at http://localhost:3000/admin
+Admin interface (SSR) is available at http://localhost:3000/hippos
 
 
 ___
