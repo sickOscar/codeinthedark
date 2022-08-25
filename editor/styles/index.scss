@@ -335,6 +335,30 @@ body.power-mode {
   }
 }
 
+.spinner {
+  z-index: 99;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  p {
+    color: #fff;
+  }
+
+  iframe {
+
+  }
+}
+
+.hidden {
+    display: none;
+}
+
 @keyframes pulse {
     0% {
         animation-timing-function: ease-out;

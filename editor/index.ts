@@ -104,6 +104,8 @@ const Editor = (function () {
         this.canvasContext = this.canvas.getContext("2d");
         this.$finish = $(".finish-button");
         this.$body = $("body");
+        this.$spinner = $(".spinner")[0];
+        this.$loadingFrame = $("#loading-frame");
         this.debouncedSaveContent = _.debounce(this.saveContent, 300);
         this.debouncedEndStreak = _.debounce(this.endStreak, this.STREAK_TIMEOUT);
         this.throttledShake = _.throttle(this.shake, 100, {
@@ -348,7 +350,7 @@ const Editor = (function () {
         `);
         if ((confirm != null ? confirm.toLowerCase() : void 0) === "yes") {
             this.$result[0].contentWindow.postMessage(this.editor.getValue(), "*");
-            
+
             this.sendLayout(this.editor.getValue())
                 .then(() => {
                     this.$result.show();
@@ -360,11 +362,11 @@ const Editor = (function () {
                     Please call one of the admins to help you out.
                     `);
                 })
-            
+
         }
     };
-    
-    
+
+
     App.prototype.sendLayout = async function (code) {
         const getLayoutUrl = `${SERVER_URL}/get-layout`;
 
@@ -374,6 +376,7 @@ const Editor = (function () {
             return;
         }
 
+        this.toggleSpinner();
 
         return fetch(getLayoutUrl, {
             method: 'POST',
@@ -388,16 +391,29 @@ const Editor = (function () {
             })
         })
             .then(res => {
-                
-                console.log(`res.status`, res.status)
-                
                 if (res.status !== 200) {
                     throw new Error(`${res.status} ${res.statusText}`);
                 }
                 return res.json();
             })
+            .finally(() => {
+                this.toggleSpinner();
+            })
     }
-    
+
+    App.prototype.toggleSpinner = function () {
+
+        const gifs = [
+            'https://giphy.com/embed/LRVnPYqM8DLag',
+            'https://giphy.com/embed/13EE0u1PR5R2jm',
+            'https://giphy.com/embed/DTUx7SdtyRHTjIXkpg',
+            'https://giphy.com/embed/l4FATJpd4LWgeruTK'
+        ]
+
+        this.$spinner.classList.toggle("hidden");
+        this.$loadingFrame.attr("src", gifs[Math.floor(Math.random() * gifs.length)]);
+    }
+
 
     App.prototype.onChange = function (e) {
         var insertTextAction, pos, range, token;

@@ -1,10 +1,11 @@
 {
   "name": "editor",
   "version": "1.0.0",
-  "description": "*Read more about the Code in the Dark competition [here](https://github.com/codeinthedark/codeinthedark.github.io)*",
+  "description": "(Un)official editor for code in the dark in Venice",
   "main": "index.js",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "build": "vite build"
   },
   "keywords": [],
   "author": "",
