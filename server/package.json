@@ -51,14 +51,6 @@
     "start": "ts-node-dev index.ts",
     "deploy": "pm2 deploy production"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/interlogicaDevelopers/codeinthedark_server.git"
-  },
-  "author": "Interlogica",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/interlogicaDevelopers/codeinthedark_server/issues"
-  },
-  "homepage": "https://github.com/interlogicaDevelopers/codeinthedark_server#readme"
+  "author": "Oscar Chinellato",
+  "license": "GPL-3.0"
 }
