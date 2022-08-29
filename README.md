@@ -5,13 +5,22 @@ This repository contains the code for the [Code In the Dark](https://codeintheda
 ## Main Server
 The main server is a node.js application that serves all the APIs needed for the clients to join and get the actual state of the game. The source code can be found in the server folder.
 
-### Installation
+### Deploy
+
+```bash
+cd server 
+pm2 deploy production
+```
+
+### Local Development
+
+#### Installation
 ```bash
 cd server
 npm install
 ```
 
-### Running
+#### Running
 ```bash
 npm start
 ```
