@@ -41,19 +41,5 @@ setInterval(() => {
 }, 1000)
 
 
-//
-// let multer = require('multer');
-// let formData = multer();
-//
-// const adminSockets:any[] = [];
-//
-
-
-// setInterval(async () => {
-//     await checkRounds()
-// }, 1000);
-//
-
-
 
 
