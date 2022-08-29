@@ -48,7 +48,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node-dev index.ts"
+    "start": "ts-node-dev index.ts",
+    "deploy": "pm2 deploy production"
   },
   "repository": {
     "type": "git",

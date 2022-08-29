@@ -1,7 +1,5 @@
 {
-
     "apps": [
-
         {
             "name": "CodeInTheDark Server",
             "script": "index.js",
@@ -17,7 +15,5 @@
                 "followSymlinks": false
             }
         }
-
-
     ]
 }
