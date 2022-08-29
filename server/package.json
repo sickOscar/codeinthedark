@@ -49,6 +49,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node-dev index.ts",
+    "build": "tsc",
     "deploy": "pm2 deploy production"
   },
   "author": "Oscar Chinellato",

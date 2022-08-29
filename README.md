@@ -7,9 +7,15 @@ The main server is a node.js application that serves all the APIs needed for the
 
 ### Deploy
 
+The deploy is done on bare metal on a linux based server. You need to have `git` and `node` installed (use nvm!) on the remote machine . `pnpm` is used to install the dependencies.
+
 ```bash
 cd server 
-pm2 deploy production
+
+# first time only
+./node_modules/.bin/pm2 deploy production setup
+
+npm run deploy
 ```
 
 ### Local Development

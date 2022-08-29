@@ -2,7 +2,7 @@
     "apps": [
         {
             "name": "CodeInTheDark Server",
-            "script": "index.js",
+            "script": "dist/index.js",
             "env": {
 
             },
