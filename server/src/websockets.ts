@@ -9,7 +9,6 @@ export function createIoConnection() {
         console.log('CONNECTION', socket.id);
         const handshakeData = socket.request;
 
-
         if (handshakeData._query['user'] === 'admin') {
             console.log("ADMIN SOCKET CONNECTION");
             adminSockets.push(socket);

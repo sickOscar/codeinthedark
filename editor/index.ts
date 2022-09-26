@@ -11,6 +11,7 @@ import ace from 'brace';
 import "brace/mode/html";
 import "brace/theme/vibrant_ink"
 import "brace/ext/searchbox";
+import io from "socket.io-client";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
@@ -106,6 +107,9 @@ const Editor = (function () {
         this.$body = $("body");
         this.$spinner = $(".spinner")[0];
         this.$loadingFrame = $("#loading-frame");
+        this.$instructions = $(".instructions")[0];
+        this.$reference = $(".reference-screenshot");
+
         this.debouncedSaveContent = _.debounce(this.saveContent, 300);
         this.debouncedEndStreak = _.debounce(this.endStreak, this.STREAK_TIMEOUT);
         this.throttledShake = _.throttle(this.shake, 100, {
@@ -115,6 +119,14 @@ const Editor = (function () {
             trailing: false
         });
         this.editor = this.setupAce();
+        this.gotRound = false;
+        this.gettingRound = false;
+
+        console.log('START')
+        this.socket = io(SERVER_URL, { transports: ["websocket"] });
+        this.socket.on('message', this.onSocketMessage.bind(this))
+
+
         this.loadContent();
         this.editor.focus();
         this.editor.getSession().on("change", this.onChange);
@@ -434,6 +446,34 @@ const Editor = (function () {
             };
         })(this));
     };
+
+    App.prototype.onSocketMessage = function(message) {
+
+        if (message.type !== "ROUND_END_COUNTDOWN") {
+            return;
+        }
+
+        if (this.gotRound || this.gettingRound) {
+            return;
+        }
+
+        console.log('fetching round')
+        this.gettingRound = true;
+        const url = `${SERVER_URL}/round/${message.data.round}`;
+        console.log(`url`, url)
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                this.$instructions.src = data.instructions_url;
+                this.$reference.css({
+                    backgroundImage: `url(${data.layout_url})`
+                });
+                this.gotRound = true;
+                this.gettingRound = false;
+            })
+            .catch(console.error)
+    }
 
     return App;
 
