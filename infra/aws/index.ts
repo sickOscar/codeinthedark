@@ -129,6 +129,10 @@ function createVoteWebsiteBucket() {
         bucket: `vote.codeinthedark.interlogica.it`,
         acl: 'public-read',
         requestPayer: 'BucketOwner',
+        website: {
+            indexDocument: 'index.html',
+            errorDocument: 'index.html'
+        },
         corsRules: [{
             allowedHeaders: ['*'],
             allowedMethods: [
@@ -168,6 +172,10 @@ function createViewerWebsiteBucket() {
         bucket: `viewer.codeinthedark.interlogica.it`,
         acl: 'public-read',
         requestPayer: 'BucketOwner',
+        website: {
+            indexDocument: 'index.html',
+            errorDocument: 'index.html'
+        },
         corsRules: [{
             allowedHeaders: ['*'],
             allowedMethods: [
@@ -208,6 +216,10 @@ function createEditorWebsiteBucket() {
         bucket: `editor.codeinthedark.interlogica.it`,
         acl: 'public-read',
         requestPayer: 'BucketOwner',
+        website: {
+            indexDocument: 'index.html',
+            errorDocument: 'index.html'
+        },
         corsRules: [{
             allowedHeaders: ['*'],
             allowedMethods: [

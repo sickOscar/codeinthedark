@@ -35,6 +35,10 @@ npm start
 ## Viewer
 The viewer is an Angular application that is projected on a big screen during the event. The source code can be found in the viewer folder.
 
+### Deploy
+To deploy the application, just put it in a s3 bucket and set the bucket as a static website.
+There should be a `deploy.sh` script in the `viewer` folder that does this for you.
+
 ### Installation
 ```bash
 cd viewer
@@ -64,6 +68,10 @@ cd rating/v1
 python3 -m http.server
 ```
 
+### Deploy
+To deploy the application, just put it in a s3 bucket and set the bucket as a static website.
+There should be a `deploy.sh` script in the `rating` folder that does this for you.
+
 ## Editor
 
 The editor is an updated and modified fork of the [original editor](https://github.com/codeinthedark/editor) editor.
@@ -81,7 +89,11 @@ npm install
 npm run dev
 ```
 
-## Build
+### Build
 ```bash
 npm run build
 ```
+
+### Deploy
+To deploy the application, just put it in a s3 bucket and set the bucket as a static website.
+There should be a `deploy.sh` script in the `editor` folder that does this for you.
