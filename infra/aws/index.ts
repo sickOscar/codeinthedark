@@ -11,15 +11,17 @@ createVoteWebsiteBucket();
 createViewerWebsiteBucket();
 createEditorWebsiteBucket();
 
-const {serverElasticIp} = createEC2();
+createEC2();
 
-export const serverPublicIp = serverElasticIp.publicIp;
+// export const serverPublicIp = serverElasticIp.publicIp;
 
 
 function createEC2() {
 
     const vpc = new aws.ec2.Vpc('vpc', {
         cidrBlock: '13.0.0.0/16',
+        enableDnsHostnames: true,
+        enableDnsSupport: true,
         tags: Object.assign({}, commonTags, {
             Name: 'citd-vpc'
         }) as { [key: string]: string }
@@ -94,14 +96,64 @@ function createEC2() {
         }) as { [key: string]: string }
     });
 
-    const serverElasticIp = new aws.ec2.Eip("server-eip", {
-        instance: server.id,
-        vpc: true,
+    // const serverElasticIp = new aws.ec2.Eip("server-eip", {
+    //     instance: server.id,
+    //     vpc: true,
+    // });
+
+    const originId = `${process.env.CITD_SERVER_PUBLIC_DNS}`;
+    const distribution = new aws.cloudfront.Distribution('server-distribution', {
+        origins: [{
+            domainName: originId,
+            originId: originId,
+            customOriginConfig: {
+                httpPort: 3000,
+                httpsPort: 443,
+                originProtocolPolicy: 'http-only',
+                originSslProtocols: ['TLSv1.2']
+            }
+        }],
+        enabled: true,
+        isIpv6Enabled: false,
+        defaultCacheBehavior: {
+            allowedMethods: [
+                "DELETE",
+                "GET",
+                "HEAD",
+                "OPTIONS",
+                "PATCH",
+                "POST",
+                "PUT",
+            ],
+            cachedMethods: [
+                "GET",
+                "HEAD",
+            ],
+            targetOriginId: originId,
+            forwardedValues: {
+                queryString: false,
+                cookies: {
+                    forward: "none",
+                },
+            },
+            viewerProtocolPolicy: "allow-all",
+            minTtl: 0,
+            defaultTtl: 3600,
+            maxTtl: 86400,
+        },
+        restrictions: {
+            geoRestriction: {
+                restrictionType: "none",
+            }
+        },
+        viewerCertificate: {
+            cloudfrontDefaultCertificate: true,
+        },
+        tags: commonTags
     });
 
-    return {
-        serverElasticIp
-    }
+
+
 
 }
 
@@ -125,7 +177,7 @@ function createDataBucket() {
 
 
 function createVoteWebsiteBucket() {
-    const voteBucket = new aws.s3.Bucket('vote', {
+    const bucket = new aws.s3.Bucket('vote', {
         bucket: `vote.codeinthedark.interlogica.it`,
         acl: 'public-read',
         requestPayer: 'BucketOwner',
@@ -146,7 +198,7 @@ function createVoteWebsiteBucket() {
     });
 
     new aws.s3.BucketPolicy(`vote-bucket-policy`, {
-        bucket: voteBucket.id,
+        bucket: bucket.id,
         policy: {
             'Version': '2012-10-17',
             'Statement': [
@@ -158,17 +210,65 @@ function createVoteWebsiteBucket() {
                         's3:GetObject'
                     ],
                     'Resource': [
-                        pulumi.interpolate`${voteBucket.arn}/*`
+                        pulumi.interpolate`${bucket.arn}/*`
                     ]
                 }
             ]
         }
     });
-    return voteBucket;
+
+    const s3OriginId = "vote.codeinthedark.interlogica.it";
+    const distribution = new aws.cloudfront.Distribution('vote-distribution', {
+        origins: [{
+            domainName: bucket.bucketRegionalDomainName,
+            originId: s3OriginId,
+        }],
+        enabled: true,
+        isIpv6Enabled: false,
+        defaultRootObject: "index.html",
+        defaultCacheBehavior: {
+            allowedMethods: [
+                "DELETE",
+                "GET",
+                "HEAD",
+                "OPTIONS",
+                "PATCH",
+                "POST",
+                "PUT",
+            ],
+            cachedMethods: [
+                "GET",
+                "HEAD",
+            ],
+            targetOriginId: s3OriginId,
+            forwardedValues: {
+                queryString: false,
+                cookies: {
+                    forward: "none",
+                },
+            },
+            viewerProtocolPolicy: "allow-all",
+            minTtl: 0,
+            defaultTtl: 3600,
+            maxTtl: 86400,
+        },
+        restrictions: {
+            geoRestriction: {
+                restrictionType: "none",
+            }
+        },
+        viewerCertificate: {
+            cloudfrontDefaultCertificate: true,
+        },
+        tags: commonTags
+    });
+
+
+    return bucket;
 }
 
 function createViewerWebsiteBucket() {
-    const viewerBucket = new aws.s3.Bucket('viewer', {
+    const bucket = new aws.s3.Bucket('viewer', {
         bucket: `viewer.codeinthedark.interlogica.it`,
         acl: 'public-read',
         requestPayer: 'BucketOwner',
@@ -189,7 +289,7 @@ function createViewerWebsiteBucket() {
     });
 
     new aws.s3.BucketPolicy(`viewer-bucket-policy`, {
-        bucket: viewerBucket.id,
+        bucket: bucket.id,
         policy: {
             'Version': '2012-10-17',
             'Statement': [
@@ -201,18 +301,65 @@ function createViewerWebsiteBucket() {
                         's3:GetObject'
                     ],
                     'Resource': [
-                        pulumi.interpolate`${viewerBucket.arn}/*`
+                        pulumi.interpolate`${bucket.arn}/*`
                     ]
                 }
             ]
         }
     });
-    return viewerBucket;
+
+    const s3OriginId = "viewer.codeinthedark.interlogica.it";
+    const distribution = new aws.cloudfront.Distribution('viewer-distribution', {
+        origins: [{
+            domainName: bucket.bucketRegionalDomainName,
+            originId: s3OriginId,
+        }],
+        enabled: true,
+        isIpv6Enabled: false,
+        defaultRootObject: "index.html",
+        defaultCacheBehavior: {
+            allowedMethods: [
+                "DELETE",
+                "GET",
+                "HEAD",
+                "OPTIONS",
+                "PATCH",
+                "POST",
+                "PUT",
+            ],
+            cachedMethods: [
+                "GET",
+                "HEAD",
+            ],
+            targetOriginId: s3OriginId,
+            forwardedValues: {
+                queryString: false,
+                cookies: {
+                    forward: "none",
+                },
+            },
+            viewerProtocolPolicy: "allow-all",
+            minTtl: 0,
+            defaultTtl: 3600,
+            maxTtl: 86400,
+        },
+        restrictions: {
+            geoRestriction: {
+                restrictionType: "none",
+            }
+        },
+        viewerCertificate: {
+            cloudfrontDefaultCertificate: true,
+        },
+        tags: commonTags
+    });
+
+    return bucket;
 }
 
 
 function createEditorWebsiteBucket() {
-    const editorBucket = new aws.s3.Bucket('editor', {
+    const bucket = new aws.s3.Bucket('editor', {
         bucket: `editor.codeinthedark.interlogica.it`,
         acl: 'public-read',
         requestPayer: 'BucketOwner',
@@ -233,7 +380,7 @@ function createEditorWebsiteBucket() {
     });
 
     new aws.s3.BucketPolicy(`editor-bucket-policy`, {
-        bucket: editorBucket.id,
+        bucket: bucket.id,
         policy: {
             'Version': '2012-10-17',
             'Statement': [
@@ -245,11 +392,59 @@ function createEditorWebsiteBucket() {
                         's3:GetObject'
                     ],
                     'Resource': [
-                        pulumi.interpolate`${editorBucket.arn}/*`
+                        pulumi.interpolate`${bucket.arn}/*`
                     ]
                 }
             ]
         }
     });
-    return editorBucket;
+
+
+    const s3OriginId = "editor.codeinthedark.interlogica.it";
+    const distribution = new aws.cloudfront.Distribution('editor-distribution', {
+        origins: [{
+            domainName: bucket.bucketRegionalDomainName,
+            originId: s3OriginId,
+        }],
+        enabled: true,
+        isIpv6Enabled: false,
+        defaultRootObject: "index.html",
+        defaultCacheBehavior: {
+            allowedMethods: [
+                "DELETE",
+                "GET",
+                "HEAD",
+                "OPTIONS",
+                "PATCH",
+                "POST",
+                "PUT",
+            ],
+            cachedMethods: [
+                "GET",
+                "HEAD",
+            ],
+            targetOriginId: s3OriginId,
+            forwardedValues: {
+                queryString: false,
+                cookies: {
+                    forward: "none",
+                },
+            },
+            viewerProtocolPolicy: "allow-all",
+            minTtl: 0,
+            defaultTtl: 3600,
+            maxTtl: 86400,
+        },
+        restrictions: {
+            geoRestriction: {
+                restrictionType: "none",
+            }
+        },
+        viewerCertificate: {
+            cloudfrontDefaultCertificate: true,
+        },
+        tags: commonTags
+    });
+
+    return bucket;
 }
