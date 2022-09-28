@@ -6,6 +6,7 @@ import {app, io, startServer} from './src/server';
 import {createAdminRoutes, createRenderRoutes} from "./src/admin";
 import {createApiRoutes} from "./src/apis";
 import express from "express";
+import cors from "cors";
 import {createAuthRoutes} from "./src/auth";
 import {checkRounds} from "./src/round-checker";
 

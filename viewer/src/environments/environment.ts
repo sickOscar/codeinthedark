@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  ws_url: 'http://localhost:3000'
+  // ws_url: 'http://localhost:3000',
+  ws_url: 'https://d1fvfrbz3w0qkv.cloudfront.net'
 };
 
 /*

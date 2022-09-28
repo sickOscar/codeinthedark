@@ -8,7 +8,7 @@ import { ViewerService } from '../../../core/viewer.service';
 @Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) { }
-  transform(url) {
+  transform(url:string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
@@ -19,14 +19,12 @@ export class SafePipe implements PipeTransform {
   templateUrl: './start.component.html'
 })
 export class StartComponent implements OnInit, OnDestroy {
-  missing: number;
+  missing: number = 0;
   videoSrc: any;
   isCountdownStarted = false;
   isTimesUp = false;
 
-  private viewerServiceSub: Subscription;
-  private videoId: String;
-  private countdownId = 'AAOh91P6x60';
+  private viewerServiceSub: Subscription = new Subscription();
 
   constructor(
     private viewerService: ViewerService,

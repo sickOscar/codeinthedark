@@ -1,8 +1,8 @@
 import * as sqlite3 from 'sqlite3';
 import * as util from "util";
 
-const databaseType = `./db.sqlite`;
-export const db = new sqlite3.Database(databaseType);
+const databasePath = process.env.SQLITE_PATH || `./db.sqlite`;
+export const db = new sqlite3.Database(databasePath);
 
 
 db.run = util.promisify(db.run);

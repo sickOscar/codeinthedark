@@ -2,7 +2,7 @@
 .sass-cache/
 
 .env
-.env.local
+.env.*
 
 node_modules/
 .tmp/

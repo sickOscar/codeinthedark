@@ -16,7 +16,7 @@ export class VotingComponent implements OnInit, OnDestroy {
   data: any = {};
   isLoading: Boolean = true;
 
-  private viewerServiceSub: Subscription;
+  private viewerServiceSub: Subscription = new Subscription();
 
   constructor(
     private viewerService: ViewerService,

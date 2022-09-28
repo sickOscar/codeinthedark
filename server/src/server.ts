@@ -43,7 +43,10 @@ const strategy = new Auth0Strategy({
 passport.use(strategy);
 
 export const app = express();
+
 app.use(cors());
+app.options('*', cors())
+
 app.use(session(sess));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -63,4 +66,8 @@ export function startServer() {
     });
 }
 
-export const io = require('socket.io')(server);
+export const io = require('socket.io')(server, {
+    cors: {
+        origin: '*',
+    }
+});

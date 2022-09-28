@@ -3,6 +3,7 @@ import { Subscription, forkJoin } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { mergeMap } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
+import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 // services
 import { ViewerService } from '../../../core/viewer.service';
@@ -14,17 +15,26 @@ export class SlicePipe implements PipeTransform {
   }
 }
 
+
+interface Player {
+  name: string;
+  votes: number;
+}
+
 @Component({
   selector: 'app-round-results',
   styleUrls: ['./results.component.css'],
   templateUrl: './results.component.html'
 })
 export class ResultsComponent implements OnInit, OnDestroy {
-  players: any[] = [];
+  players: Player[] = [];
   isLoading: Boolean = true;
   isLast: Boolean = false;
+  faTrophy = faTrophy;
 
-  private viewerServiceSub: Subscription;
+  playersSlice: Player[] = [];
+
+  private viewerServiceSub: Subscription = new Subscription();
 
   constructor(
     private viewerService: ViewerService,
@@ -42,6 +52,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     ).subscribe((results: any) => {
       this.isLast = results[0].last;
       this.players = results[1];
+      this.playersSlice = this.players.slice(1);
       console.log(`this.players`, this.players)
       this.isLoading = false;
     });

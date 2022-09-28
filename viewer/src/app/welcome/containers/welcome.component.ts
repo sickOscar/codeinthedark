@@ -8,12 +8,13 @@ import { Subscription } from 'rxjs';
   templateUrl: './welcome.component.html'
 })
 export class WelcomeComponent implements OnInit, OnDestroy {
-  missing: string;
+  missing: string = '0';
   isLoading: Boolean = true;
 
-  private viewerServiceSub: Subscription;
+  private viewerServiceSub: Subscription = new Subscription();
 
-  constructor(private viewerService: ViewerService) {}
+  constructor(private viewerService: ViewerService) {
+  }
 
   ngOnInit() {
     this.viewerServiceSub = this.viewerService.state.subscribe((state: any) => {

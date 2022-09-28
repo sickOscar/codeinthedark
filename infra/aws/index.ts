@@ -96,13 +96,8 @@ function createEC2() {
         }) as { [key: string]: string }
     });
 
-    // const serverElasticIp = new aws.ec2.Eip("server-eip", {
-    //     instance: server.id,
-    //     vpc: true,
-    // });
-
     const originId = `${process.env.CITD_SERVER_PUBLIC_DNS}`;
-    const distribution = new aws.cloudfront.Distribution('server-distribution', {
+    const serverDistribution = new aws.cloudfront.Distribution('server-distribution', {
         origins: [{
             domainName: originId,
             originId: originId,
@@ -116,6 +111,7 @@ function createEC2() {
         enabled: true,
         isIpv6Enabled: false,
         defaultCacheBehavior: {
+            compress: true,
             allowedMethods: [
                 "DELETE",
                 "GET",
@@ -131,23 +127,30 @@ function createEC2() {
             ],
             targetOriginId: originId,
             forwardedValues: {
-                queryString: false,
+                headers: ["*"],
+                queryString: true,
                 cookies: {
-                    forward: "none",
+                    forward: "all",
                 },
             },
-            viewerProtocolPolicy: "allow-all",
+            viewerProtocolPolicy: "redirect-to-https",
             minTtl: 0,
-            defaultTtl: 3600,
-            maxTtl: 86400,
+            defaultTtl: 0,
+            maxTtl: 0,
         },
         restrictions: {
             geoRestriction: {
                 restrictionType: "none",
             }
         },
+        aliases: [
+            "admin.codeinthedark.interlogica.it"
+        ],
         viewerCertificate: {
-            cloudfrontDefaultCertificate: true,
+            // cloudfrontDefaultCertificate: true,
+            acmCertificateArn: process.env.CERTIFICATE_ARN,
+            sslSupportMethod: "sni-only",
+            minimumProtocolVersion: "TLSv1.2_2021",
         },
         tags: commonTags
     });
@@ -225,8 +228,11 @@ function createVoteWebsiteBucket() {
         }],
         enabled: true,
         isIpv6Enabled: false,
+        priceClass: "PriceClass_100",
         defaultRootObject: "index.html",
         defaultCacheBehavior: {
+            compress: true,
+            viewerProtocolPolicy: "redirect-to-https",
             allowedMethods: [
                 "DELETE",
                 "GET",
@@ -247,7 +253,6 @@ function createVoteWebsiteBucket() {
                     forward: "none",
                 },
             },
-            viewerProtocolPolicy: "allow-all",
             minTtl: 0,
             defaultTtl: 3600,
             maxTtl: 86400,
@@ -257,8 +262,14 @@ function createVoteWebsiteBucket() {
                 restrictionType: "none",
             }
         },
+        aliases: [
+            "vote.codeinthedark.interlogica.it"
+        ],
         viewerCertificate: {
-            cloudfrontDefaultCertificate: true,
+            // cloudfrontDefaultCertificate: true,
+            acmCertificateArn: process.env.CERTIFICATE_ARN,
+            sslSupportMethod: "sni-only",
+            minimumProtocolVersion: "TLSv1.2_2021"
         },
         tags: commonTags
     });
@@ -318,6 +329,7 @@ function createViewerWebsiteBucket() {
         isIpv6Enabled: false,
         defaultRootObject: "index.html",
         defaultCacheBehavior: {
+            compress: true,
             allowedMethods: [
                 "DELETE",
                 "GET",
@@ -338,7 +350,7 @@ function createViewerWebsiteBucket() {
                     forward: "none",
                 },
             },
-            viewerProtocolPolicy: "allow-all",
+            viewerProtocolPolicy: "redirect-to-https",
             minTtl: 0,
             defaultTtl: 3600,
             maxTtl: 86400,
@@ -348,8 +360,14 @@ function createViewerWebsiteBucket() {
                 restrictionType: "none",
             }
         },
+        aliases: [
+            "viewer.codeinthedark.interlogica.it"
+        ],
         viewerCertificate: {
-            cloudfrontDefaultCertificate: true,
+            // cloudfrontDefaultCertificate: true,
+            acmCertificateArn: process.env.CERTIFICATE_ARN,
+            sslSupportMethod: "sni-only",
+            minimumProtocolVersion: "TLSv1.2_2021",
         },
         tags: commonTags
     });
@@ -363,10 +381,10 @@ function createEditorWebsiteBucket() {
         bucket: `editor.codeinthedark.interlogica.it`,
         acl: 'public-read',
         requestPayer: 'BucketOwner',
-        website: {
-            indexDocument: 'index.html',
-            errorDocument: 'index.html'
-        },
+        // website: {
+        //     indexDocument: 'index.html',
+        //     errorDocument: 'index.html'
+        // },
         corsRules: [{
             allowedHeaders: ['*'],
             allowedMethods: [
@@ -406,10 +424,12 @@ function createEditorWebsiteBucket() {
             domainName: bucket.bucketRegionalDomainName,
             originId: s3OriginId,
         }],
+        priceClass: "PriceClass_100",
         enabled: true,
         isIpv6Enabled: false,
         defaultRootObject: "index.html",
         defaultCacheBehavior: {
+            compress: true,
             allowedMethods: [
                 "DELETE",
                 "GET",
@@ -430,7 +450,7 @@ function createEditorWebsiteBucket() {
                     forward: "none",
                 },
             },
-            viewerProtocolPolicy: "allow-all",
+            viewerProtocolPolicy: "redirect-to-https",
             minTtl: 0,
             defaultTtl: 3600,
             maxTtl: 86400,
@@ -440,8 +460,13 @@ function createEditorWebsiteBucket() {
                 restrictionType: "none",
             }
         },
+        aliases: [
+            "editor.codeinthedark.interlogica.it"
+        ],
         viewerCertificate: {
-            cloudfrontDefaultCertificate: true,
+            acmCertificateArn: process.env.CERTIFICATE_ARN,
+            sslSupportMethod: "sni-only",
+            minimumProtocolVersion: "TLSv1.2_2021",
         },
         tags: commonTags
     });

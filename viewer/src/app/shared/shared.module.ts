@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FooterComponent } from './components/footer/footer.component';
@@ -12,14 +12,14 @@ import { LoaderComponent } from './components/loader/loader.component';
     LoaderComponent
   ],
   imports: [
-    AngularFontAwesomeModule,
+    FontAwesomeModule,
     HttpClientModule
   ],
   exports: [
     CommonModule,
     FooterComponent,
     LoaderComponent,
-    AngularFontAwesomeModule,
+    FontAwesomeModule,
     HttpClientModule
   ]
 })

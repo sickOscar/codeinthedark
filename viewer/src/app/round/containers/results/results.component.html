@@ -22,14 +22,14 @@
           <h3>the king<br> of the code</h3>
           <div class="trophy">
             <p>1°</p>
-            <fa name="trophy" size="5x"></fa>
+            <fa-icon size="5x" [icon]="faTrophy"></fa-icon>
           </div>
           <h3>{{ players[0].name }}</h3>
           <p class="points">{{players[0].votes}} pt</p>
         </div>
         <div class="ranking">
           <div class="player"
-               *ngFor="let player of players | slice:1; let i = index">
+               *ngFor="let player of playersSlice; let i = index">
             <span>{{ i + 2 }}°</span>
             <span>{{ player.name }}</span>
             <span>{{ player.votes }} pt</span>

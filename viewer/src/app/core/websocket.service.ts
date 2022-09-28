@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as io from 'socket.io-client';
-import { Observable } from 'rxjs';
+import io from 'socket.io-client';
 import { environment } from '../../environments/environment';
 
 // services
@@ -8,14 +7,14 @@ import { ViewerService } from './viewer.service';
 
 @Injectable()
 export class WebsocketService {
-  private socket;
+  private socket:any;
 
   constructor(private viewerService: ViewerService) {}
 
   connect() {
     this.socket = io(environment.ws_url);
 
-    this.socket.on('message', data => {
+    this.socket.on('message', (data:any) => {
       this.viewerService.state.next(data);
     });
   }

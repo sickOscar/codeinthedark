@@ -15,6 +15,6 @@ import { Component, Input } from '@angular/core';
   `
 })
 export class PreviewComponent {
-  @Input() playerName: string;
-  @Input() layoutUrl: string;
+  @Input() playerName: string = '';
+  @Input() layoutUrl: string = '';
 }
