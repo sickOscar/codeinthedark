@@ -151,7 +151,7 @@ export interface FeedbackSchema extends ModelSchema {
 }
 
 export interface CitdEventSchema extends ModelSchema {
-    event_start: Date,
+    event_start: string,
     running_countdown: number,
     event_name: string
 }

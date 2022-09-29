@@ -1,0 +1,29 @@
+html
+    include includes/head.pug
+
+
+    body
+
+        div.container
+
+            a(href="/hippos") lista round
+
+            h1 Edit round
+
+            form(
+                action=`/event`
+                method="POST"
+                autocomplete="off"
+            )
+
+            div.row
+                div.col-sm-6
+                    div.form-group
+                        label
+                            b ROUND START
+                        input.form-control#start(
+                            type="time"
+                            name="event_start"
+                            value=event && event_start
+                        )
+

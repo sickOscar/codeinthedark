@@ -1,7 +1,7 @@
 import express from 'express';
 import * as _ from 'lodash';
 import {ensureAdmin, validate} from "./middlewares";
-import {CitdEvent, Player, Round} from "./db";
+import {CitdEvent, CitdEventSchema, Player, Round} from "./db";
 import moment from "moment-timezone";
 import assert from "assert";
 const { body, validationResult } = require('express-validator');
@@ -170,6 +170,21 @@ export function createAdminRoutes(io) {
         res.end();
 
     });
+
+    router.post('/event', ensureLoggedIn, ensureAdmin, async (req, res) => {
+
+        const eventPayload = req.body;
+
+        const event:Partial<CitdEventSchema> = {
+            event_start: moment(eventPayload.event_start).tz("Europe/Berlin").toISOString(),
+        };
+
+        await CitdEvent.update({id: 1}, event);
+
+        res.status(200);
+        res.redirect(`/hippos`);
+
+    })
 
     router.post('/round',
         ensureLoggedIn,
@@ -375,6 +390,16 @@ export function createRenderRoutes(io:any) {
         res.render('round-form', {
             title: 'Create Round',
             players
+        })
+
+    });
+
+    router.get('/event', ensureLoggedIn, ensureAdmin, async (req, res) => {
+
+        const event = await CitdEvent.findOne({id: 1});
+
+        res.render('event-form', {
+            event: event.toSchema()
         })
 
     });
