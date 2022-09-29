@@ -9,8 +9,8 @@ import * as AWS from "aws-sdk";
 import {dirname} from 'path';
 import {CitdEvent, Feedback, Round, RoundSchema, User, Vote} from "./db";
 import assert from "assert";
-import mainFilename from 'require-main-filename';
 import sharp from 'sharp';
+const os = require("os");
 
 
 const stripTags = function (str, tags):string {
@@ -126,7 +126,7 @@ export function createApiRoutes(io) {
 
             console.log(`GOT PLAYER lAYOUT: ${req.body.player}`);
 
-            const rootDir = dirname(mainFilename());
+            const rootDir = os.homedir();
             const dirName = rootDir + '/public/layouts/' + round[0].schema.id;
 
             if (!fs.existsSync(dirName)) {
