@@ -20,6 +20,24 @@ runMigrations()
 
 async function runMigrations() {
 
+    await db.run(`
+        CREATE TABLE IF NOT EXISTS events (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            event_start TEXT NOT NULL,
+            running_countdown INTEGER NOT NULL,
+            event_name TEXT
+            )
+    `)
+    try {
+        await db.run(`
+            INSERT INTO events (id, event_start, running_countdown, event_name) VALUES (1, '2022-10-07T17:00:00Z', 0, 'citd2022')`
+        )
+    } catch(err) {
+        console.log(err);
+        console.log("Event already in");
+    }
+
+
     // player
     await db.run(`
         CREATE TABLE IF NOT EXISTS players (
