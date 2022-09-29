@@ -97,7 +97,7 @@ const Editor = (function () {
         this.$streakCounter = $(".streak-container .counter");
         this.$streakBar = $(".streak-container .bar");
         this.$exclamations = $(".streak-container .exclamations");
-        this.$reference = $(".reference-screenshot-container");
+        this.$referenceContainer = $(".reference-screenshot-container");
         this.$nameTag = $(".name-tag");
         this.$result = $(".result");
         this.$editor = $("#editor");
@@ -346,8 +346,8 @@ const Editor = (function () {
     };
 
     App.prototype.onClickReference = function () {
-        this.$reference.toggleClass("active");
-        if (!this.$reference.hasClass("active")) {
+        this.$referenceContainer.toggleClass("active");
+        if (!this.$referenceContainer.hasClass("active")) {
             return this.editor.focus();
         }
     };
