@@ -209,14 +209,14 @@ export function createAdminRoutes(io) {
                 return {hour: parseInt(hours), minute: parseInt(minutes), second: 0, millisecond: 0};
             }
 
-            const roundStart = moment().utc()
-                .set(parseTimeString(roundPayload.start))
+            const roundStart = moment()
                 .tz('Europe/Rome')
+                .set(parseTimeString(roundPayload.start))
                 .toISOString();
 
-            const roundEnd = moment().utc()
-                .set(parseTimeString(roundPayload.end))
+            const roundEnd = moment()
                 .tz('Europe/Rome')
+                .set(parseTimeString(roundPayload.end))
                 .toISOString();
 
             const voteStart = moment().utc()
