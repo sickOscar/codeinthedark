@@ -84,6 +84,33 @@ function createEC2() {
         ]
     });
 
+    const serverProfile = new aws.iam.InstanceProfile('server-profile', {
+        name: 'server-profile',
+        role: new aws.iam.Role('server-role', {
+            assumeRolePolicy: JSON.stringify({
+                Version: '2012-10-17',
+                Statement: [{
+                    Action: 'sts:AssumeRole',
+                    Principal: {
+                        Service: 'ec2.amazonaws.com'
+                    },
+                    Effect: 'Allow',
+                    Sid: ''
+                }]
+            }),
+            inlinePolicies: [{
+                name: 'citd-server-policy',
+                policy: JSON.stringify({
+                    Version: '2012-10-17',
+                    Statement: [{
+                        Action: ['s3:*'],
+                        Effect: 'Allow',
+                        Resource: ['*']
+                    }]
+                })
+            }]
+        })
+    });
     const server = new aws.ec2.Instance('server', {
         keyName: 'citd',
         ami: 'ami-0d71ea30463e0ff8d',
@@ -91,6 +118,7 @@ function createEC2() {
         subnetId: publicSubnet.id,
         instanceType: 't2.micro',
         associatePublicIpAddress: true,
+        iamInstanceProfile: serverProfile,
         tags: Object.assign({}, commonTags, {
             Name: 'citd-server'
         }) as { [key: string]: string }
