@@ -219,11 +219,13 @@ export function createAdminRoutes(io) {
                 .set(parseTimeString(roundPayload.end))
                 .toISOString();
 
-            const voteStart = moment().utc()
+            const voteStart = moment()
+                .tz('Europe/Rome')
                 .set(parseTimeString(roundPayload.vote_start))
                 .toISOString();
 
             const voteEnd = moment()
+                .tz('Europe/Rome')
                 .set(parseTimeString(roundPayload.vote_end))
                 .toISOString();
 
