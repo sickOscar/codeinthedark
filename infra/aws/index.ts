@@ -13,10 +13,11 @@ createEditorWebsiteBucket();
 
 createEC2();
 
-// export const serverPublicIp = serverElasticIp.publicIp;
 
 
 function createEC2() {
+
+    const originId = `${process.env.CITD_SERVER_PUBLIC_DNS}`;
 
     const vpc = new aws.ec2.Vpc('vpc', {
         cidrBlock: '13.0.0.0/16',
@@ -80,6 +81,12 @@ function createEC2() {
                 protocol: 'tcp',
                 toPort: 3000,
                 cidrBlocks: ['0.0.0.0/0']
+            },
+            {
+                fromPort: 3001,
+                protocol: 'tcp',
+                toPort: 3001,
+                cidrBlocks: ['0.0.0.0/0']
             }
         ]
     });
@@ -124,7 +131,7 @@ function createEC2() {
         }) as { [key: string]: string }
     });
 
-    const originId = `${process.env.CITD_SERVER_PUBLIC_DNS}`;
+
     const serverDistribution = new aws.cloudfront.Distribution('server-distribution', {
         origins: [{
             domainName: originId,
@@ -208,6 +215,9 @@ function createDataBucket() {
 
 
 function createVoteWebsiteBucket() {
+
+    const originId = `${process.env.CITD_SERVER_PUBLIC_DNS}`;
+
     const bucket = new aws.s3.Bucket('vote', {
         bucket: `vote.codeinthedark.interlogica.it`,
         acl: 'public-read',
@@ -248,19 +258,22 @@ function createVoteWebsiteBucket() {
         }
     });
 
-    const s3OriginId = "vote.codeinthedark.interlogica.it";
     const distribution = new aws.cloudfront.Distribution('vote-distribution', {
         origins: [{
-            domainName: bucket.bucketRegionalDomainName,
-            originId: s3OriginId,
+            domainName: originId,
+            originId: originId,
+            customOriginConfig: {
+                httpPort: 3001,
+                httpsPort: 443,
+                originProtocolPolicy: 'http-only',
+                originSslProtocols: ['TLSv1.2']
+            }
         }],
         enabled: true,
         isIpv6Enabled: false,
-        priceClass: "PriceClass_100",
-        defaultRootObject: "index.html",
+        priceClass: 'PriceClass_100',
         defaultCacheBehavior: {
             compress: true,
-            viewerProtocolPolicy: "redirect-to-https",
             allowedMethods: [
                 "DELETE",
                 "GET",
@@ -274,16 +287,18 @@ function createVoteWebsiteBucket() {
                 "GET",
                 "HEAD",
             ],
-            targetOriginId: s3OriginId,
+            targetOriginId: originId,
             forwardedValues: {
-                queryString: false,
+                headers: ["*"],
+                queryString: true,
                 cookies: {
-                    forward: "none",
+                    forward: "all",
                 },
             },
+            viewerProtocolPolicy: "redirect-to-https",
             minTtl: 0,
-            defaultTtl: 3600,
-            maxTtl: 86400,
+            defaultTtl: 0,
+            maxTtl: 0,
         },
         restrictions: {
             geoRestriction: {
@@ -297,7 +312,7 @@ function createVoteWebsiteBucket() {
             // cloudfrontDefaultCertificate: true,
             acmCertificateArn: process.env.CERTIFICATE_ARN,
             sslSupportMethod: "sni-only",
-            minimumProtocolVersion: "TLSv1.2_2021"
+            minimumProtocolVersion: "TLSv1.2_2021",
         },
         tags: commonTags
     });
