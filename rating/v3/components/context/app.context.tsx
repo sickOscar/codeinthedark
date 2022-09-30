@@ -34,6 +34,7 @@ export function AppContextWrapper({ children }: { children?: ReactNode }) {
 
   useEffect(() => {
     const isExpired = new Date().getTime() > parseInt(localStorage.getItem("expires_at") || "1");
+    return
 
     if (isExpired) {
 
