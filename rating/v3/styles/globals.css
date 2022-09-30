@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer base {
+  h1 {
+    @apply text-2xl block;
+  }
+  h2 {
+    @apply text-xl block;
+  }
+  body {
+    @apply font-mono text-screengreen-500 bg-black
+}
+}
+
+.fullview{
+  height: 100vh;
+}
