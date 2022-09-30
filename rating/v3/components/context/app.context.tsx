@@ -3,8 +3,6 @@ import io, { Socket } from "socket.io-client";
 import * as auth0 from "auth0-js";
 
 
-
-
 export type User = {
   isAuthenticated: boolean;
   username: string;
@@ -13,12 +11,9 @@ export type User = {
 export const UserContext = createContext<User | undefined>(undefined);
 
 
-
 //const HOST = "http://localhost:3000";
 export const HOST = "https://admin.codeinthedark.interlogica.it/";
 export const SocketContext = createContext<Socket | undefined>(undefined);
-
-
 
 
 export function AppContextWrapper({ children }: { children?: ReactNode }) {
@@ -34,7 +29,6 @@ export function AppContextWrapper({ children }: { children?: ReactNode }) {
 
   useEffect(() => {
     const isExpired = new Date().getTime() > parseInt(localStorage.getItem("expires_at") || "1");
-    return
 
     if (isExpired) {
 
