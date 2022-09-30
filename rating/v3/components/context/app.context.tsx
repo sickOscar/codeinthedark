@@ -42,7 +42,7 @@ export function AppContextWrapper({ children }: { children?: ReactNode }) {
         clientID: "szGGo4O0YjUxeIkM2gPHdwrtIYTUcnzD",
         responseType: "token id_token",
         scope: "openid",
-        redirectUri: "http://localhost:8000", //window.location.href,
+        redirectUri: `${location.protocol}//${location.host}${location.port ? `:${location.port}` : ""}`,
       });
 
       webAuth.parseHash((err, authResult) => {

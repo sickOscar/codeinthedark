@@ -80,6 +80,12 @@ function createEC2() {
                 protocol: 'tcp',
                 toPort: 3000,
                 cidrBlocks: ['0.0.0.0/0']
+            },
+            {
+                fromPort: 3001,
+                protocol: 'tcp',
+                toPort: 3001,
+                cidrBlocks: ['0.0.0.0/0']
             }
         ]
     });
