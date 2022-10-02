@@ -1,12 +1,19 @@
 import { NextPage } from "next";
+import { useEffect } from "react";
 import { useNotAuthenticated } from "../components/useAuthenticated";
 import useHandleSocket from "../components/useHandleSocket";
+import useVoted from "../components/useVoted";
 
 
 const WaitingRoom: NextPage = () => {
 
   const feedback = useHandleSocket();
   useNotAuthenticated();
+  const [voted, setVoted] = useVoted(false);
+
+  useEffect(() => {
+    localStorage.setItem("voted", JSON.stringify(false));
+  }, []);
 
   return (
     <div className="text-center h-screen flex flex-col justify-center p-2">

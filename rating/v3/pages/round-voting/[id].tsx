@@ -2,6 +2,9 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { HOST, UserContext } from "../../components/context/app.context";
+import { useNotAuthenticated } from "../../components/useAuthenticated";
+import useRouterByMessage from "../../components/useHandleSocket";
+import useVoted from "../../components/useVoted";
 
 export interface Round {
   id: number,
@@ -64,6 +67,9 @@ const RoundVotingPage: NextPage = () => {
   const { id } = router.query;
 
   const user = useContext(UserContext);
+  //const [voted, setVoted] = useVoted(false);
+
+  useNotAuthenticated();
 
   const [votedEnabled, setVotedEnabled] = useState<boolean>(false);
   const [round, setRound] = useState<Round>({ id: 0, name: "", players: [], layout_url: "" });
@@ -94,6 +100,8 @@ const RoundVotingPage: NextPage = () => {
   const onSubmitVote = () => {
     const voteURL = HOST + 'vote/' + id + '/' + playerId;
 
+    localStorage.setItem("voted", JSON.stringify(true));
+
     fetch(voteURL, {
       method: 'POST',
       headers: {
@@ -111,10 +119,6 @@ const RoundVotingPage: NextPage = () => {
         else {
           router.push("/thanks");
         }
-      })
-      .then(response => {
-        // TO ASK = x' tenere nello stato i voti fatti?
-        //state.votes[state.currentRound._id] = +new Date();
       })
   }
 
