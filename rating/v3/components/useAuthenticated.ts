@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { UserContext } from "./context/app.context";
 
-export function useNotAuthenticated() {
+export function useNotAuthenticated(): void {
     const router = useRouter();
     const user = useContext(UserContext);
 
@@ -14,7 +14,7 @@ export function useNotAuthenticated() {
 }
 
 
-export function useAuthenticated() {
+export function useAuthenticated(): void {
     const router = useRouter();
     const user = useContext(UserContext);
 
