@@ -1,15 +1,13 @@
 import { useRouter } from "next/router";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { SocketContext } from "../components/app-context-wrapper";
 import { Message, MessageTypes } from "../utils/messages";
-import { SocketContext } from "./context/app.context";
-import useVoted from "./useVoted";
 
 export default function useRouterByMessage(): string {
 
     const [feedback, setFeedback] = useState<string>("");
     const router = useRouter();
     const socket = useContext(SocketContext);
-    //const [voted, setVoted] = useVoted(undefined);
 
     useEffect(() => {
 

@@ -1,10 +1,8 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import { HOST, UserContext } from "../../components/context/app.context";
-import { useNotAuthenticated } from "../../components/useAuthenticated";
-import useRouterByMessage from "../../components/useHandleSocket";
-import useVoted from "../../components/useVoted";
+import { HOST, UserContext } from "../../components/app-context-wrapper";
+import { useNotAuthenticated } from "../../customhook/useAuthenticated";
 
 export interface Round {
   id: number,
@@ -67,7 +65,6 @@ const RoundVotingPage: NextPage = () => {
   const { id } = router.query;
 
   const user = useContext(UserContext);
-  //const [voted, setVoted] = useVoted(false);
 
   useNotAuthenticated();
 

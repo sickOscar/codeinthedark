@@ -1,15 +1,13 @@
 import { NextPage } from "next";
 import { useEffect } from "react";
-import { useNotAuthenticated } from "../components/useAuthenticated";
-import useHandleSocket from "../components/useHandleSocket";
-import useVoted from "../components/useVoted";
+import { useNotAuthenticated } from "../customhook/useAuthenticated";
+import useHandleSocket from "../customhook/useHandleSocket";
 
 
 const WaitingRoom: NextPage = () => {
 
   const feedback = useHandleSocket();
   useNotAuthenticated();
-  const [voted, setVoted] = useVoted(false);
 
   useEffect(() => {
     localStorage.setItem("voted", JSON.stringify(false));

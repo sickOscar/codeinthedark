@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useAuthenticated } from "../components/useAuthenticated";
+import { useAuthenticated } from "../customhook/useAuthenticated";
 
 const Home: NextPage = () => {
   useAuthenticated();

@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { useState } from "react";
-import { useNotAuthenticated } from "../components/useAuthenticated";
-import useRouterByMessage from "../components/useHandleSocket";
+import { useNotAuthenticated } from "../customhook/useAuthenticated";
+import useRouterByMessage from "../customhook/useHandleSocket";
 
 
 const gifs = [
