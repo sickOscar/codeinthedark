@@ -34,7 +34,7 @@ export function AppContextWrapper({ children }: { children?: ReactNode }) {
 
       const webAuth = new auth0.WebAuth({
         domain: "codeinthedarkve.eu.auth0.com",
-        clientID: "szGGo4O0YjUxeIkM2gPHdwrtIYTUcnzD",
+        clientID: "6jXh1PMXdoj6GQdFYH2EjAMoAyCxPxHf",c
         responseType: "token id_token",
         scope: "openid",
         redirectUri: `${location.protocol}//${location.host}${location.port ? `:${location.port}` : ""}`,
