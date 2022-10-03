@@ -1,19 +1,31 @@
 import { NextPage } from "next";
+import { useState } from "react";
 import { useNotAuthenticated } from "../components/useAuthenticated";
+import useRouterByMessage from "../components/useHandleSocket";
 
+
+const gifs = [
+    "https://giphy.com/embed/ZfK4cXKJTTay1Ava29",
+    "https://giphy.com/embed/RipfZWzjUDH25euMpM",
+    "https://giphy.com/embed/3o752n7MfQD6tyLFq8",
+    "https://giphy.com/embed/bkGXLpEXC6Tsc",
+    "https://giphy.com/embed/i5iC0BHktRLm3lLmWR",
+    "https://giphy.com/embed/tHW1VNQiuVKcOsKHTv",
+    "https://giphy.com/embed/l1J9L1hcY2xBCitFK",
+    "https://giphy.com/embed/TGuRmwvXa0uCwbzMJZ",
+    "https://giphy.com/embed/xT1R9LR8nuOYwZvLig",
+
+]
 
 const Thanks: NextPage = () => {
-
+    useRouterByMessage();
     useNotAuthenticated();
+    const [anigif, setAniGif] = useState(gifs[Math.round(Math.random() * gifs.length - 1)]);
 
     return (
         <div className="text-center h-screen flex flex-col justify-center">
-            <h1 className="text-3xl mb-3">Thank UUU</h1>
-            <img
-                alt="voted icon"
-                src="/voted.png"
-                className="w-16 h-16 self-center"
-            />
+            <h1 className="text-3xl mb-3">Round Voted!</h1>
+            <iframe className="self-center mt-6" src={anigif} width="300" height="200" frameBorder="0"></iframe>
         </div>
     );
 };
