@@ -2,6 +2,9 @@ import { createContext, useEffect, useState, ReactNode } from "react";
 import io, { Socket } from "socket.io-client";
 import * as auth0 from "auth0-js";
 
+// -----------------------------------
+// USER
+// -----------------------------------
 
 export type User = {
   isAuthenticated: boolean;
@@ -11,9 +14,13 @@ export type User = {
 export const UserContext = createContext<User | undefined>(undefined);
 
 
+// -----------------------------------
+// SOCKET
+// -----------------------------------
 //const HOST = "http://localhost:3000";
 export const HOST = "https://admin.codeinthedark.interlogica.it/";
 export const SocketContext = createContext<Socket | undefined>(undefined);
+
 
 
 export function AppContextWrapper({ children }: { children?: ReactNode }) {
@@ -33,11 +40,11 @@ export function AppContextWrapper({ children }: { children?: ReactNode }) {
     if (isExpired) {
 
       const webAuth = new auth0.WebAuth({
-        domain: "codeinthedarkve.eu.auth0.com",
-        clientID: "6jXh1PMXdoj6GQdFYH2EjAMoAyCxPxHf",
+        domain: process.env.authUrl ?? "",
+        clientID: process.env.authClientId ?? "",
         responseType: "token id_token",
         scope: "openid",
-        redirectUri: `${location.protocol}//${location.host}${location.port ? `:${location.port}` : ""}`,
+        redirectUri: `${location.protocol}//${location.host}${location.port && location.host.indexOf(":") === -1 ? `:${location.port}` : ""}`,
       });
 
       webAuth.parseHash((err, authResult) => {
