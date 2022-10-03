@@ -1,12 +1,18 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { AppContextWrapper } from "../components/app-context-wrapper";
+import LogoHeader from "../components/logo-header";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AppContextWrapper>
-      <Component {...pageProps} />
-    </AppContextWrapper>
+    <div className="fullview flex flex-col">
+      <LogoHeader />
+      <AppContextWrapper>
+        <div className="flex-1">
+          <Component {...pageProps} />
+        </div>
+      </AppContextWrapper>
+    </div>
   );
 }
 

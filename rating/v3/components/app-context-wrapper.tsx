@@ -89,12 +89,12 @@ export function AppContextWrapper({ children }: { children?: ReactNode }) {
           url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap");
         </style>
       </Head>
+
       <SocketContext.Provider value={socket}>
         <UserContext.Provider value={user}>
           {children}
         </UserContext.Provider>
       </SocketContext.Provider>
     </>
-
   )
 }

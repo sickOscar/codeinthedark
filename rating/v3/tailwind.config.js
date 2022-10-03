@@ -17,6 +17,9 @@ module.exports = {
         purple:{
           500: '#9157D3'
         }
+      },
+      backgroundImage: {
+        "content-image":"url('/citd-bg.png')",
       }
     },
   },

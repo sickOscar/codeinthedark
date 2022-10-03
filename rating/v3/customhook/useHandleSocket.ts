@@ -23,7 +23,7 @@ export default function useRouterByMessage(): string {
                     break;
                 case MessageTypes.ROUND_END_COUNTDOWN:
                     router.push("/waiting-room");
-                    setFeedback("This is the end my only friend");
+                    setFeedback("This is the end,<br /> my only friend");
                     break;
                 case MessageTypes.SHOWING_RESULTS:
                     setFeedback("Stop, no more votes");

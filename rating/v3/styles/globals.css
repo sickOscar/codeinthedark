@@ -12,8 +12,8 @@
     @apply text-xl block;
   }
   body {
-    @apply font-mono bg-black text-white
-}
+    @apply font-mono bg-black text-white h-full
+  }
 }
 
 .fullview{
