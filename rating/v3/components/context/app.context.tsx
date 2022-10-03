@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState, ReactNode } from "react";
 import io, { Socket } from "socket.io-client";
 import * as auth0 from "auth0-js";
+import Head from "next/head";
 
 // -----------------------------------
 // USER
@@ -81,10 +82,19 @@ export function AppContextWrapper({ children }: { children?: ReactNode }) {
   }, [expiredAt, socket]);
 
   return (
-    <SocketContext.Provider value={socket}>
-      <UserContext.Provider value={user}>
-        {children}
-      </UserContext.Provider>
-    </SocketContext.Provider>
+    <>
+      <Head>
+        <style>
+          @import
+          url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap");
+        </style>
+      </Head>
+      <SocketContext.Provider value={socket}>
+        <UserContext.Provider value={user}>
+          {children}
+        </UserContext.Provider>
+      </SocketContext.Provider>
+    </>
+
   )
 }

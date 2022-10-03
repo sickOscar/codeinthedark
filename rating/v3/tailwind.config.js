@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 
-const colors = require('tailwindcss/colors')
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   content: [
@@ -10,9 +10,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily:{
+        'mono': ['Source Code Pro', ...defaultTheme.fontFamily.mono]
+      },
       colors:{
-        screengreen:{
-          500: '#00ff00'
+        purple:{
+          500: '#9157D3'
         }
       }
     },
