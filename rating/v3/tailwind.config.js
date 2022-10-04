@@ -14,8 +14,9 @@ module.exports = {
         'mono': ['Source Code Pro', ...defaultTheme.fontFamily.mono]
       },
       colors:{
-        purple:{
-          500: '#9157D3'
+        citd:{
+          purple: '#9157D3',
+          cyan: '#53FEDF'
         }
       },
       backgroundImage: {
