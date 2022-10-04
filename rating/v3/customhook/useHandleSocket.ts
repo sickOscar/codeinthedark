@@ -24,7 +24,7 @@ export default function useRouterByMessage(): string {
                     break;
                 case MessageTypes.RECEIVING_RESULTS:
                     router.push("/waiting-room");
-                    setFeedback("reciving layouts...");
+                    setFeedback("receving layouts...");
                     break;
                 case MessageTypes.VOTE_COUNTDOWN:
                     const roundId = message.data?.round;
