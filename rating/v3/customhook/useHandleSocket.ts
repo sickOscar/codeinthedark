@@ -18,21 +18,23 @@ export default function useRouterByMessage(): string {
                 case MessageTypes.WAITING:
                 case MessageTypes.EVENT_COUNTDOWN:
                 case MessageTypes.ROUND_COUNTDOWN:
+                case MessageTypes.ROUND_END_COUNTDOWN:
                     router.push("/waiting-room");
                     setFeedback(message.data?.missing || "no data...");
                     break;
-                case MessageTypes.ROUND_END_COUNTDOWN:
-                    router.push("/waiting-room");
-                    setFeedback("This is the end,<br /> my only friend");
-                    break;
-                case MessageTypes.SHOWING_RESULTS:
-                    setFeedback("Stop, no more votes");
-                    break;
                 case MessageTypes.RECEIVING_RESULTS:
+                    router.push("/waiting-room");
+                    setFeedback("reciving layouts...");
+                    break;
+                case MessageTypes.VOTE_COUNTDOWN:
                     const roundId = message.data?.round;
                     if (roundId && !voted) {
                         router.push(`/round-voting/${roundId}`);
                     }
+                    break;
+                case MessageTypes.SHOWING_RESULTS:
+                    router.push("/waiting-room");
+                    setFeedback("voting is over!");
                     break;
 
                 default:
