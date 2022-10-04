@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNotAuthenticated } from "../customhook/useAuthenticated";
 import useRouterByMessage from "../customhook/useHandleSocket";
 import LogoFooter from "../components/logo-footer";
@@ -21,7 +21,7 @@ const gifs = [
 const Thanks: NextPage = () => {
     useRouterByMessage();
     useNotAuthenticated();
-    const [anigif, setAniGif] = useState(gifs[Math.round(Math.random() * gifs.length - 1)]);
+    const [anigif, setAniGif] = useState(gifs[Math.floor(Math.random() * (gifs.length - 1))]);
 
     return (
         <div className="relative text-center h-full p-2" >
