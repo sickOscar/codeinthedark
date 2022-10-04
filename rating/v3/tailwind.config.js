@@ -20,6 +20,9 @@ module.exports = {
       },
       backgroundImage: {
         "content-image":"url('/citd-bg.png')",
+      },
+      borderWidth:{
+        "basic": "0.1rem"
       }
     },
   },

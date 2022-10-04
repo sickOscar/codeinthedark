@@ -33,20 +33,20 @@ type PlayerProps = {
 const PlayerItem = ({ player, handler }: PlayerProps) => {
 
   return (
-    <div onClick={() => handler(player.id)} className="relative mb-4">
+    <div onClick={() => handler(player.id)} className="relative mt-2 mb-2 border-basic border-white">
       <img
         className="max-w-full h-auto"
         alt="player preview layout"
         src={player.data ?? "/no-image.png"}
       />
-      <h2 className="text-2xl bg-black p-2 absolute bottom-10">
+      <p className="text-xl text-black bg-white p-1 absolute top-0 left-0">
         {player.fullname}
-      </h2>
+      </p>
       {player.voted && (
         <img
           alt="voted icon"
           src="/voted.png"
-          className="absolute bottom-10 right-2 w-16 h-16"
+          className="absolute bottom-0 right-0 w-12 h-12"
         />
       )}
     </div>
@@ -119,10 +119,25 @@ const RoundVotingPage: NextPage = () => {
       })
   }
 
+  //
 
   return (
-    <div className="relative fullview">
-      <div className="absolute top-64 bottom-12 left-0 right-0 overflow-auto">
+    <div className="text-center h-full p-4 flex flex-col overflow-y-auto">
+
+      <div className="bg-black h-62 max-h-62 lg:max-h-64 overflow-hidden">
+        <h2 className="text-center p-2 mb-4 text-cyan-400 uppercase">Best 4U in round <span className="text-white">{round.name}</span>?</h2>
+        <div className="max-h-42 border-basic border-white relative">
+          <img
+            src={encodeURI(round.layout_url || "/no-image.png")}
+            className="w-full h-auto  border-0"
+            alt="challange layout preview"
+          />
+          <div className="bg-purple-400 absolute pl-2 pr-2 top-0 left-0">reference</div>
+        </div>
+      </div>
+
+
+      <div className="flex-1 overflow-y-auto">
         {round.players.map((player) => {
           return (
             <PlayerItem
@@ -132,26 +147,18 @@ const RoundVotingPage: NextPage = () => {
             />
           );
         })}
-        <div className="w-auto h-28">&nbsp;</div>
+        <div className="w-auto h-60">&nbsp;</div>
       </div>
 
-      <div className="fixed top-0 left-0 right-0 bg-black h-62 overflow-hidden ">
-        <h2 className="text-center p-2">Best 4U in round **{round.name}**?</h2>
-        <img
-          src={encodeURI(round.layout_url || "/no-image.png")}
-          className="max-w-full h-auto"
-          alt="result layout preview"
-        />
-      </div>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-black h-10">
+      <div className="bg-black h-10 pt-2">
         <button
           type="button"
-          className=" text-black font-bold w-full text-center p-2 disabled:opacity-30 bg-screengreen-500"
+          className="font-bold w-full text-center p-2 rounded-md bg-cyan-400 text-black disabled:opacity-30"
           disabled={!votedEnabled}
           onClick={onSubmitVote}
         >
-          <span>Ok vote my loved now!</span>
+          <span>Vote your champ</span>
         </button>
       </div>
     </div>
