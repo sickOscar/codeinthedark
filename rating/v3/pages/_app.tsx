@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <div className="fullview flex flex-col">
       <LogoHeader />
       <AppContextWrapper>
-        <div className="flex-1">
+        <div className="flex-1 overflow-y-auto">
           <Component {...pageProps} />
         </div>
       </AppContextWrapper>
