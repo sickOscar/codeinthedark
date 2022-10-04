@@ -26,8 +26,8 @@ const WaitingRoom: NextPage = () => {
 
   return (
     <div className="relative text-center h-full p-2 bg-content-image bg-top bg-cover" >
-      <h4 className="text-xl text-cyan-400 uppercase mt-10">I am a patient human being</h4>
-      <h4 className="text-xl text-cyan-400 uppercase">waiting waiting waiting </h4>
+      <h4 className="text-xl text-citd-cyan uppercase mt-10">I am a patient human being</h4>
+      <h4 className="text-xl text-citd-cyan uppercase">waiting waiting waiting </h4>
       {parseFeedback()}
       <LogoFooter></LogoFooter>
     </div >

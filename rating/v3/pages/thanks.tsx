@@ -25,7 +25,7 @@ const Thanks: NextPage = () => {
 
     return (
         <div className="relative text-center h-full p-2" >
-            <h4 className="text-xl text-cyan-400 uppercase mt-10">GR8, YOUR VOTE IS OUT THERE!</h4>
+            <h4 className="text-xl text-citd-cyan uppercase mt-10">GR8, YOUR VOTE IS OUT THERE!</h4>
             <iframe className="mt-6 m-auto" src={anigif} width="300" height="200" frameBorder="0"></iframe>
             <LogoFooter></LogoFooter>
         </div>

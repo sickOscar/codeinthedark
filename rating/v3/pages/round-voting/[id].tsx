@@ -16,7 +16,8 @@ export interface Player {
   voted: boolean,
   name: string,
   fullname: string,
-  data: string | null,
+  preview_url: string | null,
+  full_preview_url: string | null,
 }
 
 //-----------------------------------------------------
@@ -35,9 +36,9 @@ const PlayerItem = ({ player, handler }: PlayerProps) => {
   return (
     <div onClick={() => handler(player.id)} className="relative mt-2 mb-2 border-basic border-white">
       <img
-        className="max-w-full h-auto"
+        className="max-w-full w-full h-auto"
         alt="player preview layout"
-        src={player.data ?? "/no-image.png"}
+        src={player.preview_url ?? "/no-image.png"}
       />
       <p className="text-xl text-black bg-white p-1 absolute top-0 left-0">
         {player.fullname}
@@ -125,14 +126,14 @@ const RoundVotingPage: NextPage = () => {
     <div className="text-center h-full p-4 flex flex-col overflow-y-auto">
 
       <div className="bg-black h-62 max-h-62 lg:max-h-64 overflow-hidden">
-        <h2 className="text-center p-2 mb-4 text-cyan-400 uppercase">Best 4U in round <span className="text-white">{round.name}</span>?</h2>
+        <h2 className="text-center p-2 mb-4 text-citd-cyan uppercase">Best 4U in round <span className="text-white">{round.name}</span>?</h2>
         <div className="max-h-42 border-basic border-white relative">
           <img
             src={encodeURI(round.layout_url || "/no-image.png")}
             className="w-full h-auto  border-0"
             alt="challange layout preview"
           />
-          <div className="bg-purple-400 absolute pl-2 pr-2 top-0 left-0">reference</div>
+          <div className="bg-citd-purple absolute pl-2 pr-2 top-0 left-0">reference</div>
         </div>
       </div>
 
@@ -154,7 +155,7 @@ const RoundVotingPage: NextPage = () => {
       <div className="bg-black h-10 pt-2">
         <button
           type="button"
-          className="font-bold w-full text-center p-2 rounded-md bg-cyan-400 text-black disabled:opacity-30"
+          className="font-bold w-full text-center p-2 rounded-md bg-citd-cyan text-black disabled:opacity-30"
           disabled={!votedEnabled}
           onClick={onSubmitVote}
         >
