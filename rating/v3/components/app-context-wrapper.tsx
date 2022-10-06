@@ -84,10 +84,7 @@ export function AppContextWrapper({ children }: { children?: ReactNode }) {
   return (
     <>
       <Head>
-        <style>
-          @import
-          url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap");
-        </style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap" />
       </Head>
 
       <SocketContext.Provider value={socket}>
