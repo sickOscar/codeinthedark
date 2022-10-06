@@ -361,10 +361,12 @@ const Editor = (function () {
         Type \"yes\" to confirm.
         `);
         if ((confirm != null ? confirm.toLowerCase() : void 0) === "yes") {
-            this.$result[0].contentWindow.postMessage(this.editor.getValue(), "*");
+            // this.$result[0].contentWindow.postMessage(this.editor.getValue(), "*");
 
             this.sendLayout(this.editor.getValue())
-                .then(() => {
+                .then((data) => {
+                    console.log(data);
+                    this.$result[0].contentWindow.postMessage(data.redirect, "*");
                     this.$result.show();
                 })
                 .catch(err => {

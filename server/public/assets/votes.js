@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     fetchVotes();
 
@@ -19,14 +19,24 @@ function fetchVotes() {
         })
         .then(response => {
 
+            console.log(`response`, response)
+
             let d = response.map(player => {
-               return `
-               
-               ${player.id} ---- ${player.name}: ${player.votes}
-               <img width="100" src="${player.preview_url}" />
+                return `
+<tr>
+<td>
+${player.preview_url}
+</td>
+<td>
+${player.name}
+</td>
+<td>
+${player.votes}
+</td>
+</tr>
 `
             });
 
-            document.querySelector('#data').innerHTML = d.join('<br>');
+            document.querySelector('#data').innerHTML = d.join('');
         })
 }
