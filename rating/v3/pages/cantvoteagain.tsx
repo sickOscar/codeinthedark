@@ -1,7 +1,8 @@
 import { NextPage } from "next";
 import { useState } from "react";
-import { useNotAuthenticated } from "../components/useAuthenticated";
-import useRouterByMessage from "../components/useHandleSocket";
+import { useNotAuthenticated } from "../customhook/useAuthenticated";
+import useRouterByMessage from "../customhook/useHandleSocket";
+import LogoFooter from "../components/logo-footer";
 
 const gifs = [
     "https://giphy.com/embed/L7zmmuaEo50MCt1Y7o",
@@ -18,14 +19,15 @@ const gifs = [
 const CantVoteAgain: NextPage = () => {
     useRouterByMessage();
     useNotAuthenticated();
-    const [anigif, setAniGif] = useState(gifs[Math.round(Math.random() * gifs.length - 1)]);
+    const [anigif, setAniGif] = useState(gifs[Math.floor(Math.random() * (gifs.length - 1))]);
 
 
     return (
-        <div className="text-center h-screen flex flex-col justify-center p-2">
-            <h1 className="text-3xl">No no no no</h1>
-            <h1 className="text-3xl">You can&apos;t double vote</h1>
-            <iframe className="self-center mt-6" src={anigif} width="300" height="200" frameBorder="0"></iframe>
+        <div className="relative text-center h-full p-2" >
+            <h4 className="text-xl text-citd-cyan uppercase mt-10">no no no no</h4>
+            <h1 className="text-xl text-citd-cyan uppercase">You can&apos;t double vote</h1>
+            <iframe className="mt-6 m-auto" src={anigif} width="300" height="200" frameBorder="0"></iframe>
+            <LogoFooter></LogoFooter>
         </div>
     );
 };

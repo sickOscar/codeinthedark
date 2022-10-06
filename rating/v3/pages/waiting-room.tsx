@@ -1,29 +1,38 @@
 import { NextPage } from "next";
 import { useEffect } from "react";
-import { useNotAuthenticated } from "../components/useAuthenticated";
-import useHandleSocket from "../components/useHandleSocket";
-import useVoted from "../components/useVoted";
+import { useNotAuthenticated } from "../customhook/useAuthenticated";
+import useHandleSocket from "../customhook/useHandleSocket";
+import LogoFooter from "../components/logo-footer";
 
 
 const WaitingRoom: NextPage = () => {
 
   const feedback = useHandleSocket();
   useNotAuthenticated();
-  const [voted, setVoted] = useVoted(false);
 
   useEffect(() => {
     localStorage.setItem("voted", JSON.stringify(false));
   }, []);
 
+  const parseFeedback = () => {
+    const showCounter = !!feedback.match(/^.{2}\:.{2}$/);
+    let feedbackElement = <div className="mt-8"><h4 className="text-xl text-white" dangerouslySetInnerHTML={{ __html: feedback }}></h4></div>
+    if (showCounter) {
+      feedbackElement = <h1 className="text-[5rem] text-white mt-12">{feedback}</h1>;
+    }
+
+    return feedbackElement;
+  }
+
   return (
-    <div className="text-center h-screen flex flex-col justify-center p-2">
-      <h1 className="text-3xl">I am a patient boy</h1>
-      <h1 className="text-3xl">I wait</h1>
-      <h1 className="text-3xl">I wait</h1>
-      <h1 className="text-3xl">I wait</h1>
-      <h1 className="text-3xl text-red-600">{feedback}</h1>
-    </div>
+    <div className="relative text-center h-full p-2 bg-content-image bg-top bg-cover" >
+      <h4 className="text-xl text-citd-cyan uppercase mt-10">I am a patient human being</h4>
+      <h4 className="text-xl text-citd-cyan uppercase">waiting waiting waiting </h4>
+      {parseFeedback()}
+      <LogoFooter></LogoFooter>
+    </div >
   );
 };
+
 
 export default WaitingRoom;

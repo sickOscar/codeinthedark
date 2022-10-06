@@ -1,15 +1,13 @@
 import { useRouter } from "next/router";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { SocketContext } from "../components/app-context-wrapper";
 import { Message, MessageTypes } from "../utils/messages";
-import { SocketContext } from "./context/app.context";
-import useVoted from "./useVoted";
 
 export default function useRouterByMessage(): string {
 
     const [feedback, setFeedback] = useState<string>("");
     const router = useRouter();
     const socket = useContext(SocketContext);
-    //const [voted, setVoted] = useVoted(undefined);
 
     useEffect(() => {
 
@@ -25,7 +23,7 @@ export default function useRouterByMessage(): string {
                     break;
                 case MessageTypes.ROUND_END_COUNTDOWN:
                     router.push("/waiting-room");
-                    setFeedback("This is the end my only friend");
+                    setFeedback("This is the end,<br /> my only friend");
                     break;
                 case MessageTypes.SHOWING_RESULTS:
                     setFeedback("Stop, no more votes");

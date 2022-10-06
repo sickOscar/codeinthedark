@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
-import { UserContext } from "./context/app.context";
+import { UserContext } from "../components/app-context-wrapper";
 
 export function useNotAuthenticated(): void {
     const router = useRouter();

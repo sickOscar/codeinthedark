@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 
-const colors = require('tailwindcss/colors')
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   content: [
@@ -10,10 +10,20 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily:{
+        'mono': ['Source Code Pro', ...defaultTheme.fontFamily.mono]
+      },
       colors:{
-        screengreen:{
-          500: '#00ff00'
+        citd:{
+          purple: '#9157D3',
+          cyan: '#53FEDF'
         }
+      },
+      backgroundImage: {
+        "content-image":"url('/citd-bg.png')",
+      },
+      borderWidth:{
+        "basic": "0.1rem"
       }
     },
   },

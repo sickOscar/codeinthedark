@@ -1,7 +1,8 @@
 import { NextPage } from "next";
-import { useState } from "react";
-import { useNotAuthenticated } from "../components/useAuthenticated";
-import useRouterByMessage from "../components/useHandleSocket";
+import { useEffect, useState } from "react";
+import { useNotAuthenticated } from "../customhook/useAuthenticated";
+import useRouterByMessage from "../customhook/useHandleSocket";
+import LogoFooter from "../components/logo-footer";
 
 
 const gifs = [
@@ -20,12 +21,13 @@ const gifs = [
 const Thanks: NextPage = () => {
     useRouterByMessage();
     useNotAuthenticated();
-    const [anigif, setAniGif] = useState(gifs[Math.round(Math.random() * gifs.length - 1)]);
+    const [anigif, setAniGif] = useState(gifs[Math.floor(Math.random() * (gifs.length - 1))]);
 
     return (
-        <div className="text-center h-screen flex flex-col justify-center">
-            <h1 className="text-3xl mb-3">Round Voted!</h1>
-            <iframe className="self-center mt-6" src={anigif} width="300" height="200" frameBorder="0"></iframe>
+        <div className="relative text-center h-full p-2" >
+            <h4 className="text-xl text-citd-cyan uppercase mt-10">GR8, YOUR VOTE IS OUT THERE!</h4>
+            <iframe className="mt-6 m-auto" src={anigif} width="300" height="200" frameBorder="0"></iframe>
+            <LogoFooter></LogoFooter>
         </div>
     );
 };
