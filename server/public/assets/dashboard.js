@@ -287,7 +287,28 @@ function stopEventCountdown(id) {
 
 }
 
+function deleteVotes(roundId) {
+    console.log('delete votes', roundId)
 
+    // conferm decision with a prompt
+    if (confirm('Sei sicuro Shoto? Fallo solo se è un FACEOFF')) {
+        fetch(DOMAIN + '/round/delete_votes/' + roundId, {
+            method: 'POST'
+        })
+            .then(response => {
+
+                if (response.status === 200) {
+                    console.log('done');
+                    window.location.reload(true);
+                } else {
+
+                    alert('error!')
+                }
+            })
+    }
+
+
+}
 
 function showResults(id) {
     console.log('show results', id)

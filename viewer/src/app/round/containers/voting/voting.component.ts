@@ -16,6 +16,8 @@ export class VotingComponent implements OnInit, OnDestroy {
   data: any = {};
   isLoading: Boolean = true;
 
+  vote_link = 'bit.ly/citdve2022';
+
   private viewerServiceSub: Subscription = new Subscription();
 
   constructor(

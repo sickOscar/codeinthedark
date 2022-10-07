@@ -1,7 +1,7 @@
 import express from 'express';
 import * as _ from 'lodash';
 import {ensureAdmin, validate} from "./middlewares";
-import {CitdEvent, CitdEventSchema, Player, Round} from "./db";
+import {CitdEvent, CitdEventSchema, Player, Round, Vote} from "./db";
 import moment from "moment-timezone";
 import assert from "assert";
 const { body, validationResult } = require('express-validator');
@@ -85,6 +85,15 @@ export function createAdminRoutes(io) {
             showing_results: 0,
             waiting: 0
         });
+
+        res.status(200);
+        res.end();
+    });
+
+    // route to delete all votes of a round
+    router.post('/round/delete_votes/:roundId', ensureLoggedIn, ensureAdmin, async (req, res) => {
+
+        await Vote.deleteOne({round: req.params.roundId});
 
         res.status(200);
         res.end();

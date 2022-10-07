@@ -142,7 +142,7 @@ const RoundVotingPage: NextPage = () => {
         {round.players.map((player) => {
           return (
             <PlayerItem
-              key={player.fullname}
+              key={player.name}
               player={player}
               handler={voteHandler}
             />
