@@ -40,14 +40,14 @@ const PlayerItem = ({ player, handler }: PlayerProps) => {
         alt="player preview layout"
         src={player.preview_url ?? "/no-image.png"}
       />
-      <p className="text-xl text-black bg-white p-1 absolute top-0 left-0">
+      <p className=" text-black bg-citd-purple p-1 absolute bottom-0 left-0">
         {player.fullname}
       </p>
       {player.voted && (
         <img
           alt="voted icon"
           src="/voted.png"
-          className="absolute bottom-0 right-0 w-12 h-12"
+          className="absolute bottom-0 right-0 w-14 h-14"
         />
       )}
     </div>
@@ -125,7 +125,7 @@ const RoundVotingPage: NextPage = () => {
   return (
     <div className="text-center h-full p-4 flex flex-col overflow-y-auto">
 
-      <div className="bg-black h-62 max-h-62 lg:max-h-64 overflow-hidden">
+      <div className="bg-black h-62 max-h-62 lg:max-h-64 mb-1 overflow-hidden">
         <h2 className="text-center p-2 mb-4 text-citd-cyan uppercase">Best 4U in round <span className="text-white">{round.name}</span>?</h2>
         <div className="max-h-42 border-basic border-white relative">
           <img
@@ -152,7 +152,7 @@ const RoundVotingPage: NextPage = () => {
       </div>
 
 
-      <div className="bg-black h-10 pt-2">
+      <div className="bg-black h-20 pt-2">
         <button
           type="button"
           className="font-bold w-full text-center p-2 rounded-md bg-citd-cyan text-black disabled:opacity-30"
