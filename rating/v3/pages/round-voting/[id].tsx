@@ -78,7 +78,7 @@ const RoundVotingPage: NextPage = () => {
   const [playerId, setPlayerId] = useState<number>(-1);
 
   useEffect(() => {
-    const a = /Android/.test(navigator.userAgent);
+    const a = /Android/i.test(navigator.userAgent);
     setIsAndroid(a);
   }, []);
 
