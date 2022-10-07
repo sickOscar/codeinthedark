@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { HOST, UserContext } from "../../components/app-context-wrapper";
 import { useNotAuthenticated } from "../../customhook/useAuthenticated";
+import cn from "classnames";
+
 
 export interface Round {
   id: number,
@@ -40,7 +42,7 @@ const PlayerItem = ({ player, handler }: PlayerProps) => {
         alt="player preview layout"
         src={player.preview_url ?? "/no-image.png"}
       />
-      <p className=" text-black bg-citd-purple p-1 absolute bottom-0 left-0">
+      <p className=" text-white bg-citd-purple p-1 pl-1 pr-2 absolute bottom-0 left-0">
         {player.fullname}
       </p>
       {player.voted && (
@@ -67,11 +69,18 @@ const RoundVotingPage: NextPage = () => {
 
   const user = useContext(UserContext);
 
+  const [isAndroid, setIsAndroid] = useState<boolean>(true);
+
   useNotAuthenticated();
 
   const [votedEnabled, setVotedEnabled] = useState<boolean>(false);
   const [round, setRound] = useState<Round>({ id: 0, name: "", players: [], layout_url: "" });
   const [playerId, setPlayerId] = useState<number>(-1);
+
+  useEffect(() => {
+    const a = /Android/.test(navigator.userAgent);
+    setIsAndroid(a);
+  }, []);
 
   useEffect(() => {
     if (!id) return;
@@ -152,7 +161,7 @@ const RoundVotingPage: NextPage = () => {
       </div>
 
 
-      <div className="bg-black h-20 pt-2">
+      <div className={cn("bg-black", "pt-2", { "h-24": isAndroid })} >
         <button
           type="button"
           className="font-bold w-full text-center p-2 rounded-md bg-citd-cyan text-black disabled:opacity-30"
